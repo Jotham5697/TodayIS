@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Signup</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="public/css/style.css" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <style>
+        body {
+            background-color: black;
+            text-align: left;
+        }
+
+        p {
+            color: white;
+            text-align: left;
+        }
+
+        label {
+            color: white;
+        }
+    </style>
+    <nav id=nav class="navbar navbar navbar-expand-lg navbar-dark trans navbar-nav" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand blue" href="#">Navbar w/ text</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <span class="navbar-text blue">
+                    Navbar text with an inline element
+                </span>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active blue" aria-current="page" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link blue" href="index.html">Home</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+    <!-- End of Navbar -->
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col">
+                Left
+            </div>
+            <div class="col">
+                <form class="container" method="post" action="/signUp.html">
+                    <div class="form-group">
+                        <p>Username: </p>
+                        <input class="form-control-lg" name="username">
+                    </div>
+                    <div class="form-group">
+                        <p>Password: </p>
+                        <input class="form-control-lg" name="password">
+                    </div>
+                    <div class="form-group">
+                        <p>Confirm Password: </p>
+                        <input class="form-control-lg" name="cpassword">
+                    </div>
+                    <div class="form-group">
+                        <p>First Name: </p>
+                        <input class="form-control-lg" name="fname">
+                    </div>
+                    <div class="form-group">
+                        <p>Last Name: </p>
+                        <input class="form-control-lg" name="lname">
+                    </div>
+                    <div class="form-group">
+                        <p>What is your first class? </p>
+                        <input class="form-control-lg" name="class1" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl1" name="hl1" value="HL">
+                        <label for="Ahl" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                  <div>
+                        <p>What Lunch do you have when you have this class?</p>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch1">
+                            <option selected value = 1> A Lunch</option>
+                            <option value="2">B Lunch</option>
+                            <option value="3">C Lunch</option>
+                          </select>
+                    </div>
+                    <br>
+                
+                    <button> SignUp</button>
+                </form>
+                <br>
+                <br>
+            </div>
+            <div class="col">
+                Right
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <script src="app.js"></script> -->
+
+    <!-- <label for="userInput" class="blue">Enter Username:</label>
+    <input type="text" id="userName" size="10">
+    <br>
+    
+    <label for="userInput" class="blue">Firstname:</label>
+    <input type="text" id="fname" size="10">
+    <br>
+
+    <label for="userInput" class="blue">Lastname:</label>
+    <input type="text" id="lname" size="10">
+    <br>
+
+    <label for="userInput" class="blue">Password:</label>
+    <input type="text" id="password" size="10">
+    <br>
+
+    <label for="userInput" class="blue">Confirm Password:</label>
+    <input type="text" id="Cpassword" size="10">
+    <br>
+
+    <label for="userInput" class="blue">What is your A block Class?</label>
+    <input type="text" id="blockA" size="10">
+    <br>
+    <input type="checkbox" id="Ahl" name="Ahl" value="HL">
+    <label for="Ahl" class="blue">Do you have HL extensions for this class?</label>
+    <label for="Alunch" class="blue">When you have this class third period what lunch do you have?</label>
+    <select name="Alunch" id="Alunch">
+       <option value="A">A Lunch</option>
+       <option value="B">B Lunch</option>
+       <option value="C">C Lunch</option> 
+    </select>
+    <br> -->
+
+
+    <!-- <button onclick="logUserInput()">Log Input</button> -->
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

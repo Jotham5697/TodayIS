@@ -1,0 +1,99 @@
+
+.blue{
+    color: blue !important;
+}
+
+
+ 
+body{
+    background-color: silver !important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: 52% 80% ;    
+}
+
+
+/* body{
+    background-color: rgb(79, 79, 79) !important;
+    background-image: url(/static/images/new_logo.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-position: 52% 80% ;
+} */
+
+
+
+#trans{
+    background-color:transparent !important;
+}
+
+
+#center{
+    text-align: center;
+}
+
+ul {
+  padding-left: 10px;
+}
+
+#bold{
+    font-weight: bold !important;
+}
+
+.center{
+    text-align: center;
+}
+
+.mission{
+    font-weight: bold;
+    color: white;
+
+}
+
+#blue_back{
+    background-color: blue;
+}
+
+.white{
+    color: white;
+}
+
+
+
+.center{
+    text-align: center ;
+} 
+
+
+
+.clear{
+    opacity: 0.75 ;
+}
+
+.seen{
+    opacity: 1
+}
+
+.orange{
+    color:orange!important
+}
+
+.title1{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold; 
+}
+
+.title2{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.text{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.big{
+    font-size: large ;
+}
+
