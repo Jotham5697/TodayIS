@@ -1,5 +1,7 @@
 // watch this video 
 //https://www.mongodb.com/blog/post/quick-start-nodejs-mongodb-how-to-get-connected-to-your-database
+//watch this video to connect to render
+//https://www.youtube.com/watch?v=vkCgvEVTIgw&ab_channel=NHNTV
 
 //const popup = require('node-popup');
 //import {alert} from 'node-popup';
@@ -39,27 +41,27 @@ const userSchema = {
   class2: String,
   HL2: Boolean,
   lunch2: Number,
-  
+
   class3: String,
   HL3: Boolean,
   lunch3: Number,
-  
+
   class4: String,
   HL4: Boolean,
   lunch4: Number,
-  
+
   class5: String,
   HL5: Boolean,
   lunch5: Number,
-  
+
   class6: String,
   HL6: Boolean,
   lunch6: Number,
-  
+
   class7: String,
   HL7: Boolean,
   lunch7: Number,
-  
+
   class8: String,
   HL8: Boolean,
   lunch8: Number,
@@ -82,70 +84,69 @@ app.get('/login.html', function (req, res) {
 });
 
 
-function isHL(ishl){
-  if(ishl === "HL"){return true;
-  }else{
+function isHL(ishl) {
+  if (ishl === "HL") {
+    return true;
+  } else {
     return false;
   }
 }
 
-app.post("/login.html", function(req, res){
-usernameInput = req.body.userNameInput;
-console.log(usernameInput);
-res.sendFile(__dirname + "/templates/index.html");
+app.post("/login.html", function (req, res) {
+  usernameInput = req.body.userNameInput;
+  console.log(usernameInput);
+  res.sendFile(__dirname + "/templates/index.html");
 })
 
 app.post("/signUp.html", function (req, res) {
-  if(req.body.password === req.body.cpassword){
+  if (req.body.password === req.body.cpassword) {
+
+      let newUser = new User({
+        username: req.body.username,
+        password: req.body.password,
+        fname: req.body.fname,
+        lname: req.body.lname,
+
+        class1: req.body.class1,
+        HL1: isHL(req.body.hl1),
+        lunch1: req.body.lunch1,
+
+        class2: req.body.class2,
+        HL2: isHL(req.body.hl2),
+        lunch2: req.body.lunch2,
+
+        class3: req.body.class3,
+        HL1: isHL(req.body.hl3),
+        lunch1: req.body.lunch3,
+
+        class4: req.body.class4,
+        HL4: isHL(req.body.hl4),
+        lunch4: req.body.lunch4,
+
+        class5: req.body.class5,
+        HL5: isHL(req.body.hl5),
+        lunch5: req.body.lunch5,
+
+        class6: req.body.class6,
+        HL6: isHL(req.body.hl6),
+        lunch6: req.body.lunch6,
+
+        class7: req.body.class7,
+        HL7: isHL(req.body.hl7),
+        lunch7: req.body.lunch7,
+
+        class8: req.body.class8,
+        HL8: isHL(req.body.hl8),
+        lunch8: req.body.lunch8
+      });
+      console.log("User Successfully added!");
+      newUser.save();
+      res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
+  
     
-    try{
-    let newUser = new User({
-      username: req.body.username,
-      password: req.body.password,
-      fname: req.body.fname,
-      lname: req.body.lname,
-
-      class1: req.body.class1,
-      HL1: isHL(req.body.hl1), 
-      lunch1: req.body.lunch1,
-
-      class2: req.body.class2,
-      HL2: isHL(req.body.hl2), 
-      lunch2: req.body.lunch2,
-      
-      class3: req.body.class3,
-      HL1: isHL(req.body.hl3), 
-      lunch1: req.body.lunch3,
-      
-      class4: req.body.class4,
-      HL4: isHL(req.body.hl4), 
-      lunch4: req.body.lunch4,
-      
-      class5: req.body.class5,
-      HL5: isHL(req.body.hl5), 
-      lunch5: req.body.lunch5,
-      
-      class6: req.body.class6,
-      HL6: isHL(req.body.hl6), 
-      lunch6: req.body.lunch6,
-
-      class7: req.body.class7,
-      HL7: isHL(req.body.hl7), 
-      lunch7: req.body.lunch7,
-
-      class8: req.body.class8,
-      HL8: isHL(req.body.hl8), 
-      lunch8: req.body.lunch8
-    });
-    console.log("User Successfully added!");
-    newUser.save();
-    res.send(" <script> alert('User Successfully Created!'); window.location.href = 'index.html'</script>");
-    } catch{
-      console.error(`Error creating user ${req.body.username}:`, err);
-    }
 
   } else {
-    res.send(" <script> alert('Passwords Do Not Match'); window.location.href = 'signUp.html'</script>");
+    res.send(" <script> alert('Passwords Do Not Match'); window.location.href = 'template/signUp.html'</script>");
   }
 })
 
