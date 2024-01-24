@@ -14,10 +14,12 @@ const { Int32 } = require("mongodb");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb+srv://JothamK06:Pazzword12345697@todayis.hbmzteg.mongodb.net/UserInfo");
+//mongoose.connect("mongodb+srv://JothamK06:Pazzword12345697@todayis.hbmzteg.mongodb.net/UserInfo");
+mongoose.connect("mongodb+srv://JothamK2006:Pazzword5697@todayis.upznmwp.mongodb.net/TodayIsUse")
 
 //const client = new MongoClient(uri);
 
+strictQuery = false; 
 
 //var path = require('path');
 app.use(express.static(__dirname + '/public/css'));
@@ -71,16 +73,16 @@ const User = mongoose.model("User", userSchema);
 
 app.get('/signUp.html', function (req, res) {
   res.sendFile(__dirname + '/templates/signUp.html');
-  console.log("something");
-});
+  console.log("Succesfully entered Signup Page");});
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/templates/index.html');
+  console.log("Succesfully entered Home Page");
 });
 
 app.get('/login.html', function (req, res) {
   res.sendFile(__dirname + '/templates/login.html');
-  console.log("something");
+  console.log("Succesfully entered Login Page");
 });
 
 
@@ -92,11 +94,18 @@ function isHL(ishl) {
   }
 }
 
-app.post("/login.html", function (req, res) {
-  usernameInput = req.body.userNameInput;
-  console.log(usernameInput);
+app.post("/login.html", async function (req, res) {
+  usernameInput = String(req.body.userNameInput);
+  UserUse = User.find({ username: "UserFullTest"});
+  //UserUse = User.find();
+  //console.log(usernameInput);
+  //console.log(typeof(usernameInput));
+  //console.log(UserUse.username);
+  console.log(UserUse);
   res.sendFile(__dirname + "/templates/index.html");
 })
+
+
 
 app.post("/signUp.html", function (req, res) {
   if (req.body.password === req.body.cpassword) {
@@ -143,7 +152,6 @@ app.post("/signUp.html", function (req, res) {
       newUser.save();
       res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
   
-    
 
   } else {
     res.send(" <script> alert('Passwords Do Not Match'); window.location.href = 'template/signUp.html'</script>");
