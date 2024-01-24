@@ -74,9 +74,12 @@ app.get('/signUp.html', function (req, res) {
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/templates/index.html');
-  //alert("Connected");
 });
 
+app.get('/login.html', function (req, res) {
+  res.sendFile(__dirname + '/templates/login.html');
+  console.log("something");
+});
 
 
 function isHL(ishl){
@@ -85,6 +88,12 @@ function isHL(ishl){
     return false;
   }
 }
+
+app.post("/login.html", function(req, res){
+usernameInput = req.body.userNameInput;
+console.log(usernameInput);
+res.sendFile(__dirname + "/templates/index.html");
+})
 
 app.post("/signUp.html", function (req, res) {
   if(req.body.password === req.body.cpassword){

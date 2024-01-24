@@ -6,13 +6,21 @@
 
  
 body{
-    background-color: bl !important;
+    background-color: black !important;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
     background-position: 52% 80% ;    
 }
 
+p{
+    color: white;
+    text-align: left;
+}
+
+h4{
+    color: white;
+}
 
 /* body{
     background-color: rgb(79, 79, 79) !important;
@@ -57,9 +65,8 @@ ul {
 }
 
 .white{
-    color: white;
+    color: white !important;
 }
-
 
 
 .center{
