@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="public/css/style.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -28,6 +28,15 @@
         label {
             color: white;
         }
+
+        select {
+            align-self: left !important;
+        }
+
+        h4 {
+            text-align: left;
+            color: white;
+        }
     </style>
     <nav id=nav class="navbar navbar navbar-expand-lg navbar-dark trans navbar-nav" data-bs-theme="dark">
         <div class="container-fluid">
@@ -45,7 +54,7 @@
                         <a class="nav-link active blue" aria-current="page" href="login.html">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link blue" href="index.html">Home</a>
+                        <a class="nav-link blue" href="/">Home</a>
                     </li>
                 </ul>
 
@@ -59,46 +68,222 @@
             <div class="col">
                 Left
             </div>
-            <div class="col">
+            <div class="col-5">
                 <form class="container" method="post" action="/signUp.html">
                     <div class="form-group">
                         <p>Username: </p>
-                        <input class="form-control-lg" name="username">
+                        <input class="form-control" name="username">
                     </div>
                     <div class="form-group">
                         <p>Password: </p>
-                        <input class="form-control-lg" name="password">
+                        <input class="form-control" name="password">
                     </div>
                     <div class="form-group">
                         <p>Confirm Password: </p>
-                        <input class="form-control-lg" name="cpassword">
+                        <input class="form-control" name="cpassword">
                     </div>
                     <div class="form-group">
                         <p>First Name: </p>
-                        <input class="form-control-lg" name="fname">
+                        <input class="form-control" name="fname">
                     </div>
                     <div class="form-group">
                         <p>Last Name: </p>
-                        <input class="form-control-lg" name="lname">
+                        <input class="form-control" name="lname">
+                    </div>
+
+                    <br>
+
+                    <div>
+                        <h4>
+                            First Class:
+                        </h4>
                     </div>
                     <div class="form-group">
                         <p>What is your first class? </p>
-                        <input class="form-control-lg" name="class1" size="5">
+                        <input class="form-control" name="class1" size="5">
                     </div>
                     <div>
                         <input type="checkbox" id="hl1" name="hl1" value="HL">
-                        <label for="Ahl" class="blue">Do you have HL extensions for this class?</label>
+                        <label for="hl1" class="blue">Do you have HL extensions for this class?</label>
                     </div>
-                  <div>
-                        <p>What Lunch do you have when you have this class?</p>
+                    <div>
+                        <label for="lunch1" class="blue">What lunch do you have during this class:</label>
                         <select class="form-select form-select-sm" aria-label="Small select example" name="lunch1">
-                            <option selected value = 1> A Lunch</option>
-                            <option value="2">B Lunch</option>
-                            <option value="3">C Lunch</option>
-                          </select>
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
                     </div>
                     <br>
-                
+
+                    <br>
+
+                    <div>
+                        <h4>
+                            Second Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your second class? </p>
+                        <input class="form-control" name="class2" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl2" name="hl2" value="HL">
+                        <label for="hl2" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch2" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch2">
+                            <option selected value=1> A Lunch</option>
+                            <option value="2">B Lunch</option>
+                            <option value="3">C Lunch</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    <br>
+
+                    <div>
+                        <h4>
+                            Third Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your third class? </p>
+                        <input class="form-control" name="class3" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl3" name="hl3" value="HL">
+                        <label for="hl3" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch3" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch3">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+                    <br>
+
+                    <div>
+                        <h4>
+                            Fourth Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your fourth class? </p>
+                        <input class="form-control" name="class4" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl4" name="hl4" value="HL">
+                        <label for="hl4" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch4" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch4">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+                    
+                    <div>
+                        <h4>
+                            Fifth Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your fifth class? </p>
+                        <input class="form-control" name="class5" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl5" name="hl5" value="HL">
+                        <label for="hl5" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch5" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch5">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    <div>
+                        <h4>
+                            Sixth Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your sixth class? </p>
+                        <input class="form-control" name="class6" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl6" name="hl6" value="HL">
+                        <label for="hl6" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch6" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch6">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    
+                    <div>
+                        <h4>
+                            Seventh Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your seventh class? </p>
+                        <input class="form-control" name="class7" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl7" name="hl7" value="HL">
+                        <label for="hl7" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch7" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch7">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    
+                    <div>
+                        <h4>
+                            Eighth Class:
+                        </h4>
+                    </div>
+                    <div class="form-group">
+                        <p>What is your eighth class? </p>
+                        <input class="form-control" name="class8" size="5">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="hl8" name="hl8" value="HL">
+                        <label for="hl8" class="blue">Do you have HL extensions for this class?</label>
+                    </div>
+                    <div>
+                        <label for="lunch8" class="blue">What lunch do you have during this class:</label>
+                        <select class="form-select form-select-sm" aria-label="Small select example" name="lunch8">
+                            <option selected value=1> A lunch</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                        </select>
+                    </div>
+                    <br>
+
                     <button> SignUp</button>
                 </form>
                 <br>

@@ -18,7 +18,7 @@ mongoose.connect("mongodb+srv://JothamK06:Pazzword12345697@todayis.hbmzteg.mongo
 
 
 //var path = require('path');
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public/css'));
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 
@@ -31,8 +31,38 @@ const userSchema = {
   password: String,
   fname: String,
   lname: String,
+
+  class1: String,
   HL1: Boolean,
-  lunch1: Number
+  lunch1: Number,
+
+  class2: String,
+  HL2: Boolean,
+  lunch2: Number,
+  
+  class3: String,
+  HL3: Boolean,
+  lunch3: Number,
+  
+  class4: String,
+  HL4: Boolean,
+  lunch4: Number,
+  
+  class5: String,
+  HL5: Boolean,
+  lunch5: Number,
+  
+  class6: String,
+  HL6: Boolean,
+  lunch6: Number,
+  
+  class7: String,
+  HL7: Boolean,
+  lunch7: Number,
+  
+  class8: String,
+  HL8: Boolean,
+  lunch8: Number,
 }
 
 const User = mongoose.model("User", userSchema);
@@ -65,12 +95,42 @@ app.post("/signUp.html", function (req, res) {
       password: req.body.password,
       fname: req.body.fname,
       lname: req.body.lname,
+
+      class1: req.body.class1,
       HL1: isHL(req.body.hl1), 
-      lunch1: req.body.lunch1
+      lunch1: req.body.lunch1,
+
+      class2: req.body.class2,
+      HL2: isHL(req.body.hl2), 
+      lunch2: req.body.lunch2,
+      
+      class3: req.body.class3,
+      HL1: isHL(req.body.hl3), 
+      lunch1: req.body.lunch3,
+      
+      class4: req.body.class4,
+      HL4: isHL(req.body.hl4), 
+      lunch4: req.body.lunch4,
+      
+      class5: req.body.class5,
+      HL5: isHL(req.body.hl5), 
+      lunch5: req.body.lunch5,
+      
+      class6: req.body.class6,
+      HL6: isHL(req.body.hl6), 
+      lunch6: req.body.lunch6,
+
+      class7: req.body.class7,
+      HL7: isHL(req.body.hl7), 
+      lunch7: req.body.lunch7,
+
+      class8: req.body.class8,
+      HL8: isHL(req.body.hl8), 
+      lunch8: req.body.lunch8
     });
     console.log("User Successfully added!");
     newUser.save();
-    res.redirect("/");
+    res.send(" <script> alert('User Successfully Created!'); window.location.href = 'index.html'</script>");
     } catch{
       console.error(`Error creating user ${req.body.username}:`, err);
     }
