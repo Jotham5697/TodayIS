@@ -19,7 +19,7 @@ mongoose.connect("mongodb+srv://JothamK2006:Pazzword5697@todayis.upznmwp.mongodb
 
 //const client = new MongoClient(uri);
 
-strictQuery = false; 
+strictQuery = false;
 
 //var path = require('path');
 app.use(express.static(__dirname + '/public/css'));
@@ -35,6 +35,7 @@ const userSchema = {
   password: String,
   fname: String,
   lname: String,
+  isHS: Boolean,
 
   class1: String,
   HL1: Boolean,
@@ -73,7 +74,8 @@ const User = mongoose.model("User", userSchema);
 
 app.get('/signUp.html', function (req, res) {
   res.sendFile(__dirname + '/templates/signUp.html');
-  console.log("Succesfully entered Signup Page");});
+  console.log("Succesfully entered Signup Page");
+});
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/templates/index.html');
@@ -94,15 +96,23 @@ function isHL(ishl) {
   }
 }
 
+function isHS(ishs) {
+  if (ishs === "1") {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
- 
-  const userUse = await User.find({username: usernameInput}, "-_id").exec();
+
+  const userUse = await User.find({ username: usernameInput }, "-_id username").exec();
   //UserUse = User.find();
   //console.log(usernameInput);
   //console.log(typeof(usernameInput));
   //console.log(UserUse.username);
-
+  
   console.log(userUse);
   console.log(String(userUse));
   res.sendFile(__dirname + "/templates/index.html");
@@ -110,51 +120,53 @@ app.post("/login.html", async function (req, res) {
 
 
 
+
 app.post("/signUp.html", function (req, res) {
   if (req.body.password === req.body.cpassword) {
 
-      let newUser = new User({
-        username: req.body.username,
-        password: req.body.password,
-        fname: req.body.fname,
-        lname: req.body.lname,
+    let newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      fname: req.body.fname,
+      lname: req.body.lname,
+      isHS: isHS(req.body.isHS),
 
-        class1: req.body.class1,
-        HL1: isHL(req.body.hl1),
-        lunch1: req.body.lunch1,
+      class1: req.body.class1,
+      HL1: isHL(req.body.hl1),
+      lunch1: req.body.lunch1,
 
-        class2: req.body.class2,
-        HL2: isHL(req.body.hl2),
-        lunch2: req.body.lunch2,
+      class2: req.body.class2,
+      HL2: isHL(req.body.hl2),
+      lunch2: req.body.lunch2,
 
-        class3: req.body.class3,
-        HL3: isHL(req.body.hl3),
-        lunch3: req.body.lunch3,
+      class3: req.body.class3,
+      HL3: isHL(req.body.hl3),
+      lunch3: req.body.lunch3,
 
-        class4: req.body.class4,
-        HL4: isHL(req.body.hl4),
-        lunch4: req.body.lunch4,
+      class4: req.body.class4,
+      HL4: isHL(req.body.hl4),
+      lunch4: req.body.lunch4,
 
-        class5: req.body.class5,
-        HL5: isHL(req.body.hl5),
-        lunch5: req.body.lunch5,
+      class5: req.body.class5,
+      HL5: isHL(req.body.hl5),
+      lunch5: req.body.lunch5,
 
-        class6: req.body.class6,
-        HL6: isHL(req.body.hl6),
-        lunch6: req.body.lunch6,
+      class6: req.body.class6,
+      HL6: isHL(req.body.hl6),
+      lunch6: req.body.lunch6,
 
-        class7: req.body.class7,
-        HL7: isHL(req.body.hl7),
-        lunch7: req.body.lunch7,
+      class7: req.body.class7,
+      HL7: isHL(req.body.hl7),
+      lunch7: req.body.lunch7,
 
-        class8: req.body.class8,
-        HL8: isHL(req.body.hl8),
-        lunch8: req.body.lunch8
-      });
-      console.log("User Successfully added!");
-      newUser.save();
-      res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
-  
+      class8: req.body.class8,
+      HL8: isHL(req.body.hl8),
+      lunch8: req.body.lunch8
+    });
+    console.log("User Successfully added!");
+    newUser.save();
+    res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
+
 
   } else {
     res.send(" <script> alert('Passwords Do Not Match'); window.location.href = 'template/signUp.html'</script>");
