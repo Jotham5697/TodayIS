@@ -97,7 +97,7 @@ function isHL(ishl) {
 app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
  
-  const userUse = await User.find({username: usernameInput}, "fname").exec();
+  const userUse = await User.find({username: usernameInput}, "-_id").exec();
   //UserUse = User.find();
   //console.log(usernameInput);
   //console.log(typeof(usernameInput));
@@ -128,8 +128,8 @@ app.post("/signUp.html", function (req, res) {
         lunch2: req.body.lunch2,
 
         class3: req.body.class3,
-        HL1: isHL(req.body.hl3),
-        lunch1: req.body.lunch3,
+        HL3: isHL(req.body.hl3),
+        lunch3: req.body.lunch3,
 
         class4: req.body.class4,
         HL4: isHL(req.body.hl4),
