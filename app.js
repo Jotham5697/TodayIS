@@ -96,12 +96,15 @@ function isHL(ishl) {
 
 app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
-  UserUse = User.find({ username: "UserFullTest"});
+ 
+  const userUse = await User.find({username: usernameInput}, "fname").exec();
   //UserUse = User.find();
   //console.log(usernameInput);
   //console.log(typeof(usernameInput));
   //console.log(UserUse.username);
-  console.log(UserUse);
+
+  console.log(userUse);
+  console.log(String(userUse));
   res.sendFile(__dirname + "/templates/index.html");
 })
 
