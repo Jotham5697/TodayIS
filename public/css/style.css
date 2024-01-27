@@ -1,3 +1,7 @@
+/* Color Palette */
+/* https://colorhunt.co/palette/222831393e460092caeeeeee */
+
+
 
 .blue{
     color: blue !important;
@@ -6,7 +10,7 @@
 
  
 body{
-    background-color: black !important;
+    background-color:#1b2027 !important; 
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -14,12 +18,12 @@ body{
 }
 
 p{
-    color: white;
+    color: #0092CA;
     text-align: left;
 }
 
 h4{
-    color: white;
+    color: #0092CA;
 }
 
 /* body{
@@ -30,6 +34,22 @@ h4{
     background-attachment: fixed;
     background-position: 52% 80% ;
 } */
+
+.myinput{
+    background-color: #2d3136 !important;
+    /* max-width: 500px; */
+    border-color: #0092CA !important;
+    border-radius: 5px !important;
+    accent-color: #393E46 !important;
+ 
+}
+.myinput:focus{
+    border-bottom-color: blue !important ;
+    border-top-color: transparent !important;
+    border-left-color: transparent !important;
+    border-right-color: transparent !important;
+    outline-color: transparent !important ;
+}
 
 
 
@@ -56,7 +76,7 @@ ul {
 
 .mission{
     font-weight: bold;
-    color: white;
+    color: 0092CA;
 
 }
 
@@ -65,7 +85,7 @@ ul {
 }
 
 .white{
-    color: white !important;
+    color: #0092CA !important;
 }
 
 
