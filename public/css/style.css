@@ -3,26 +3,20 @@
 
 
 
-.blue{
-    color: blue !important;
-}
-
-
- 
-body{
-    background-color:#1b2027 !important; 
+body {
+    background-color: #1b2027 !important;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-attachment: fixed;
-    background-position: 52% 80% ;    
+    background-position: 52% 80%;
 }
 
-p{
+p {
     color: #0092CA;
     text-align: left;
 }
 
-h4{
+h4 {
     color: #0092CA;
 }
 
@@ -35,92 +29,100 @@ h4{
     background-position: 52% 80% ;
 } */
 
-.myinput{
+.myinput {
     background-color: #2d3136 !important;
     /* max-width: 500px; */
-    border-color: #0092CA !important;
+    border-color: transparent !important; 
     border-radius: 5px !important;
     accent-color: #393E46 !important;
- 
+
 }
-.myinput:focus{
-    border-bottom-color: blue !important ;
+
+.myinput:focus {
+    border-bottom-color: blue !important;
     border-top-color: transparent !important;
     border-left-color: transparent !important;
     border-right-color: transparent !important;
-    outline-color: transparent !important ;
+    outline-color: transparent !important;
+}
+.myinput:hover{
+    border-color: #0092CA !important;
+}
+
+.hovered:hover{
+    text-decoration: underline !important;
+    color: #0092CA !important;
 }
 
 
 
-#trans{
-    background-color:transparent !important;
+#trans {
+    background-color: transparent !important;
 }
 
 
-#center{
+#center {
     text-align: center;
 }
 
 ul {
-  padding-left: 10px;
+    padding-left: 10px;
 }
 
-#bold{
+#bold {
     font-weight: bold !important;
 }
 
-.center{
+.center {
     text-align: center;
 }
 
-.mission{
+.mission {
     font-weight: bold;
     color: 0092CA;
 
 }
 
-#blue_back{
+#blue_back {
     background-color: blue;
 }
 
-.white{
+.white {
     color: #0092CA !important;
 }
 
 
-.center{
-    text-align: center ;
-} 
-
-
-
-.clear{
-    opacity: 0.75 ;
+.center {
+    text-align: center;
 }
 
-.seen{
+
+
+.clear {
+    opacity: 0.75;
+}
+
+.seen {
     opacity: 1
 }
 
-.orange{
-    color:orange!important
+.orange {
+    color: orange !important
 }
 
-.title1{
+.title1 {
     font-family: 'Courier New', Courier, monospace;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
-.title2{
+.title2 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.text{
+.text {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.big{
-    font-size: large ;
+.big {
+    font-size: large;
 }
-
