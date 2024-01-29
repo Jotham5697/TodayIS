@@ -27,7 +27,7 @@ app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 
 
 app.listen(5000, function () {
-  console.log("Server is running on 5000");
+  console.log("Server is running on http://localhost:5000/ ");
 })
 
 const userSchema = {
