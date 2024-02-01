@@ -37,37 +37,9 @@ const userSchema = {
   lname: String,
   isHS: Boolean,
 
-  class1: String,
-  HL1: Boolean,
-  lunch1: Number,
-
-  class2: String,
-  HL2: Boolean,
-  lunch2: Number,
-
-  class3: String,
-  HL3: Boolean,
-  lunch3: Number,
-
-  class4: String,
-  HL4: Boolean,
-  lunch4: Number,
-
-  class5: String,
-  HL5: Boolean,
-  lunch5: Number,
-
-  class6: String,
-  HL6: Boolean,
-  lunch6: Number,
-
-  class7: String,
-  HL7: Boolean,
-  lunch7: Number,
-
-  class8: String,
-  HL8: Boolean,
-  lunch8: Number,
+  classes: Array, 
+  isHL: Array, 
+  lunches: Array
 }
 
 const User = mongoose.model("User", userSchema);
@@ -107,13 +79,14 @@ function isHS(ishs) {
 app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
 
-  const userUse = await User.find({ username: usernameInput }, "-_id username").exec();
+  const userUse = await User.find({username : usernameInput}).exec();
   //UserUse = User.find();
   //console.log(usernameInput);
   //console.log(typeof(usernameInput));
   //console.log(UserUse.username);
   
   console.log(userUse);
+  //console.log(userUse.$classes);
   console.log(String(userUse));
   res.sendFile(__dirname + "/templates/index.html");
 })
@@ -131,37 +104,9 @@ app.post("/signUp.html", function (req, res) {
       lname: req.body.lname,
       isHS: isHS(req.body.isHS),
 
-      class1: req.body.class1,
-      HL1: isHL(req.body.hl1),
-      lunch1: req.body.lunch1,
-
-      class2: req.body.class2,
-      HL2: isHL(req.body.hl2),
-      lunch2: req.body.lunch2,
-
-      class3: req.body.class3,
-      HL3: isHL(req.body.hl3),
-      lunch3: req.body.lunch3,
-
-      class4: req.body.class4,
-      HL4: isHL(req.body.hl4),
-      lunch4: req.body.lunch4,
-
-      class5: req.body.class5,
-      HL5: isHL(req.body.hl5),
-      lunch5: req.body.lunch5,
-
-      class6: req.body.class6,
-      HL6: isHL(req.body.hl6),
-      lunch6: req.body.lunch6,
-
-      class7: req.body.class7,
-      HL7: isHL(req.body.hl7),
-      lunch7: req.body.lunch7,
-
-      class8: req.body.class8,
-      HL8: isHL(req.body.hl8),
-      lunch8: req.body.lunch8
+      classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
+      isHL : Array(req.body.hl1, req.body.hl2, req.body.hl3, req.body.hl4, req.body.hl5, req.body.hl6, req.body.hl7, req.body.hl8),
+      lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8) 
     });
     console.log("User Successfully added!");
     newUser.save();

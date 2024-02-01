@@ -64,6 +64,9 @@ h4 {
 #center {
     text-align: center;
 }
+.left-a{
+    text-align: left !important;
+}
 
 ul {
     padding-left: 10px;
