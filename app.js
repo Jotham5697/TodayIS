@@ -37,8 +37,8 @@ const userSchema = {
   lname: String,
   isHS: Boolean,
 
-  classes: Array, 
-  isHL: Array, 
+  classes: Array,
+  isHL: Array,
   lunches: Array
 }
 
@@ -79,15 +79,32 @@ function isHS(ishs) {
 app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
 
-  const userUse = await User.find({username : usernameInput}).exec();
-  //UserUse = User.find();
-  //console.log(usernameInput);
-  //console.log(typeof(usernameInput));
-  //console.log(UserUse.username);
+  const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
+  const classesString = String(userClasses); //turn raw data into useable string  
+  let useString = classesString.substring(classesString.indexOf("[") + 3) //delete uneccesary id and preliminary info from string
   
-  console.log(userUse);
-  //console.log(userUse.$classes);
-  console.log(String(userUse));
+  
+  let classes = new Array(); //creates empty array for user's class info to be stored in
+  let start = 0; //create pointer for start of class name 
+  let end = 0; //create pointer for end of class name 
+  let useClass = "";  //used to store the current class name being parsed from the string
+  let useString2 = ""; //initialize second string to aid in parsing process (ie for 'a' creates new string of a' to be able to find closing quote)
+
+  while (useString.indexOf("'") > -1) { //while string still has quotes in it (meaning still has elements)
+    start = useString.indexOf("'") + 1; //start parsing string from after the opening ' 
+    useString2 = useString.substring(start); //create new string of everything after opening '
+
+    end = start + useString2.indexOf("'"); //find end point of where to parse which is where the closing ' appears
+    useClass = useString.substring(start, end);  //grabs Class Name and stores it as UseClass
+    classes.push(useClass); //adds class into array
+
+   
+    useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
+
+
+  }
+  
+
   res.sendFile(__dirname + "/templates/index.html");
 })
 
@@ -105,8 +122,8 @@ app.post("/signUp.html", function (req, res) {
       isHS: isHS(req.body.isHS),
 
       classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
-      isHL : Array(req.body.hl1, req.body.hl2, req.body.hl3, req.body.hl4, req.body.hl5, req.body.hl6, req.body.hl7, req.body.hl8),
-      lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8) 
+      isHL: Array(req.body.hl1, req.body.hl2, req.body.hl3, req.body.hl4, req.body.hl5, req.body.hl6, req.body.hl7, req.body.hl8),
+      lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)
     });
     console.log("User Successfully added!");
     newUser.save();
