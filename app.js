@@ -76,41 +76,6 @@ function isHS(ishs) {
   }
 }
 
-app.post("/login.html", async function (req, res) {
-  usernameInput = String(req.body.userNameInput);
-
-  const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
-  const classesString = String(userClasses); //turn raw data into useable string  
-  let useString = classesString.substring(classesString.indexOf("[") + 3) //delete uneccesary id and preliminary info from string
-  
-  
-  let classes = new Array(); //creates empty array for user's class info to be stored in
-  let start = 0; //create pointer for start of class name 
-  let end = 0; //create pointer for end of class name 
-  let useClass = "";  //used to store the current class name being parsed from the string
-  let useString2 = ""; //initialize second string to aid in parsing process (ie for 'a' creates new string of a' to be able to find closing quote)
-
-  while (useString.indexOf("'") > -1) { //while string still has quotes in it (meaning still has elements)
-    start = useString.indexOf("'") + 1; //start parsing string from after the opening ' 
-    useString2 = useString.substring(start); //create new string of everything after opening '
-
-    end = start + useString2.indexOf("'"); //find end point of where to parse which is where the closing ' appears
-    useClass = useString.substring(start, end);  //grabs Class Name and stores it as UseClass
-    classes.push(useClass); //adds class into array
-
-   
-    useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
-
-
-  }
-  
-
-  res.sendFile(__dirname + "/templates/index.html");
-})
-
-
-
-
 app.post("/signUp.html", function (req, res) {
   if (req.body.password === req.body.cpassword) {
 
@@ -135,7 +100,53 @@ app.post("/signUp.html", function (req, res) {
   }
 })
 
+let classes = new Array(); //creates empty array for user's class info to be stored in
 
+
+app.post("/login.html", async function (req, res) {
+  usernameInput = String(req.body.userNameInput);
+
+  const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
+  const classesString = String(userClasses); //turn raw data into useable string  
+  let useString = classesString.substring(classesString.indexOf("[") + 3) //delete uneccesary id and preliminary info from string
+
+
+  let start = 0; //create pointer for start of class name 
+  let end = 0; //create pointer for end of class name 
+  let useClass = "";  //used to store the current class name being parsed from the string
+  let useString2 = ""; //initialize second string to aid in parsing process (ie for 'a' creates new string of a' to be able to find closing quote)
+
+  while (useString.indexOf("'") > -1) { //while string still has quotes in it (meaning still has elements)
+    start = useString.indexOf("'") + 1; //start parsing string from after the opening ' 
+    useString2 = useString.substring(start); //create new string of everything after opening '
+
+    end = start + useString2.indexOf("'"); //find end point of where to parse which is where the closing ' appears
+    useClass = useString.substring(start, end);  //grabs Class Name and stores it as UseClass
+    classes.push(useClass); //adds class into array
+
+
+    useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
+  }
+  //localStorage.setItem("classesInfo", JSON.stringify(classes));
+  //localStorage.setItem("isLoggedIn", true);
+
+
+  //localStorage.setItem("classesInfo", classes);
+
+  //res.send(" <script> alert(end); window.location.href = 'template/index.html'</script>");
+  res.sendFile(__dirname + "/templates/index.html");
+})
+
+console.log("from  server: " + classes);
+
+app.post("/", function (req, res) {
+console.log("from home page: " + classes);
+})
+
+function getlocalstorage(){ 
+  localStorage.setItem("Test", "testing client or server");
+  console.log(localStorage.getItem("Test"));        
+}
 
 // const { MongoClient } = require('mongodb');
 
