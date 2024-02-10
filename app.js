@@ -11,6 +11,10 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { Int32 } = require("mongodb");
 // const { MongoClient } = require('mongodb');
+const cors = require('cors');
+app.use(cors());
+//var localStorage = require('localStorage');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -104,10 +108,11 @@ let classes = new Array(); //creates empty array for user's class info to be sto
 
 
 app.post("/login.html", async function (req, res) {
+ 
   usernameInput = String(req.body.userNameInput);
 
   const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
-  const classesString = String(userClasses); //turn raw data into useable string  
+  var classesString = String(userClasses); //turn raw data into useable string  
   let useString = classesString.substring(classesString.indexOf("[") + 3) //delete uneccesary id and preliminary info from string
 
 
@@ -127,26 +132,22 @@ app.post("/login.html", async function (req, res) {
 
     useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
   }
-  //localStorage.setItem("classesInfo", JSON.stringify(classes));
-  //localStorage.setItem("isLoggedIn", true);
+// res.status(200).json(classes); //returns JSON object with all of the users classes
+res.cookie("theclasses", JSON.stringify(classes)); 
+res.sendFile(__dirname + '/templates/index.html'); 
+});
 
 
-  //localStorage.setItem("classesInfo", classes);
 
-  //res.send(" <script> alert(end); window.location.href = 'template/index.html'</script>");
-  res.sendFile(__dirname + "/templates/index.html");
-})
 
-console.log("from  server: " + classes);
+// app.post("/", function (req, res) {
+// console.log("from home page: " + classes);
+// })
 
-app.post("/", function (req, res) {
-console.log("from home page: " + classes);
-})
-
-function getlocalstorage(){ 
-  localStorage.setItem("Test", "testing client or server");
-  console.log(localStorage.getItem("Test"));        
-}
+// function getlocalstorage(){ 
+//   localStorage.setItem("Test", "testing client or server");
+//   console.log(localStorage.getItem("Test"));        
+// }
 
 // const { MongoClient } = require('mongodb');
 

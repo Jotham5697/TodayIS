@@ -57,6 +57,22 @@
           <button> Login</button>
         </form>
         <br>
+        <script>
+
+          //console.log("something");
+          //const username = document.getElementById('username').value;
+          //console.log("Starting req");
+          // Make a POST request to the server
+          fetch('/login.html')
+          .then(response => {
+            const cookies = document.cookie; 
+            console.log(cookies); 
+             return response.text();
+          }) .catch(error => {
+            console.error('Error', error);
+          }); 
+        </script>
+
         <br>
       </div>
       <div class="col">
