@@ -27,7 +27,10 @@ strictQuery = false;
 
 //var path = require('path');
 app.use(express.static(__dirname + '/public/css'));
+app.use(express.static(__dirname + '/public')); //for server.js
+
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use(express.static(__dirname + '/templates/script.js'));
 
 
 app.listen(5000, function () {
