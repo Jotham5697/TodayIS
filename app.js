@@ -5,6 +5,8 @@
 
 //const popup = require('node-popup');
 //import {alert} from 'node-popup';
+
+//Neccesary Packages and Tools
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -14,12 +16,19 @@ const { Int32 } = require("mongodb");
 const cors = require('cors');
 app.use(cors());
 //var localStorage = require('localStorage');
+//Neccesary Packages and Tools
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //mongoose.connect("mongodb+srv://JothamK06:Pazzword12345697@todayis.hbmzteg.mongodb.net/UserInfo");
 mongoose.connect("mongodb+srv://JothamK2006:Pazzword5697@todayis.upznmwp.mongodb.net/TodayIsUse")
+
+const db = mongoose.connection; //used specifically for index get request to access all dayOff collections
 
 //const client = new MongoClient(uri);
 
@@ -51,12 +60,33 @@ const userSchema = {
 
 const User = mongoose.model("User", userSchema);
 
+
 app.get('/signUp.html', function (req, res) {
   res.sendFile(__dirname + '/templates/signUp.html');
   console.log("Succesfully entered Signup Page");
 });
 
-app.get('/', function (req, res) {
+let datesoff = new Array(); //creates empty array for user's class info to be stored in
+let reasons = new Array(); //creates empty array for user's class info to be stored in
+
+
+
+app.get('/', async function (req, res) {
+  let hasData = req.cookies.hasDayOffData;
+ 
+
+  if (hasData !== "true") {
+    const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
+    //console.log(allDaysOff);
+    allDaysOff.forEach((dayoff) => {
+
+      datesoff.push(dayoff.dateOff);
+      reasons.push(dayoff.reason);
+    });
+    res.cookie("allDatesOFf", JSON.stringify(datesoff), { overwrite: true });
+    res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
+    res.cookie("hasDayOffData", "true");
+  }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
 });
@@ -65,6 +95,17 @@ app.get('/login.html', function (req, res) {
   res.sendFile(__dirname + '/templates/login.html');
   console.log("Succesfully entered Login Page");
 });
+
+app.get('/admin.html', function (req, res) {
+  res.sendFile(__dirname + '/templates/admin.html');
+  console.log("Succesfully entered Admin Page");
+});
+
+app.get('/profile.html', function (req, res) {
+  res.sendFile(__dirname + '/templates/profile.html');
+  console.log("Succesfully entered Profile Page");
+});
+
 
 
 function isHL(ishl) {
@@ -94,7 +135,7 @@ app.post("/signUp.html", function (req, res) {
       isHS: isHS(req.body.isHS),
 
       classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
-      isHL: Array(req.body.hl1, req.body.hl2, req.body.hl3, req.body.hl4, req.body.hl5, req.body.hl6, req.body.hl7, req.body.hl8),
+      isHL: Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8)),
       lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)
     });
     console.log("User Successfully added!");
@@ -103,7 +144,7 @@ app.post("/signUp.html", function (req, res) {
 
 
   } else {
-    res.send(" <script> alert('Passwords Do Not Match'); window.location.href = 'template/signUp.html'</script>");
+    res.send(" <script> alert('Passwords Do Not Match'); window.location.href = '/signUp.html'</script>");
   }
 })
 
@@ -111,7 +152,7 @@ let classes = new Array(); //creates empty array for user's class info to be sto
 
 
 app.post("/login.html", async function (req, res) {
- 
+  res.clearCookie("theclasses");
   usernameInput = String(req.body.userNameInput);
 
   const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
@@ -135,10 +176,34 @@ app.post("/login.html", async function (req, res) {
 
     useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
   }
-// res.status(200).json(classes); //returns JSON object with all of the users classes
-res.cookie("theclasses", JSON.stringify(classes)); 
-res.sendFile(__dirname + '/templates/index.html'); 
+  // res.status(200).json(classes); //returns JSON object with all of the users classes
+  res.cookie("theclasses", JSON.stringify(classes));
+  res.cookie("loggedin", "true");
+  res.sendFile(__dirname + '/templates/index.html');
 });
+
+const dayOffSchema = {
+  dateOff: String,
+  reason: String,
+}
+
+const dayOff = mongoose.model("dayOff", dayOffSchema);
+
+
+
+app.post("/dayOff", function (req, res) {
+  let DateOff = req.body.useDate;
+  let reason = req.body.reasonDayOff;
+  let newDateOff = new dayOff({
+    dateOff: req.body.useDate,
+    reason: req.body.reasonDayOff
+  });
+  newDateOff.save();
+  console.log(DateOff);
+  console.log(reason);
+  console.log(typeof (DateOff));
+  res.send(" <script> alert('New Day Off Added!'); window.location.href = '/admin.html'</script>");
+})
 
 
 
@@ -147,9 +212,9 @@ res.sendFile(__dirname + '/templates/index.html');
 // console.log("from home page: " + classes);
 // })
 
-// function getlocalstorage(){ 
+// function getlocalstorage(){
 //   localStorage.setItem("Test", "testing client or server");
-//   console.log(localStorage.getItem("Test"));        
+//   console.log(localStorage.getItem("Test"));
 // }
 
 // const { MongoClient } = require('mongodb');
