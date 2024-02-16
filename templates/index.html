@@ -47,6 +47,10 @@
           <li class="nav-item">
             <a class="nav-link white" href="user.html">User Profile</a>
           </li>
+          <li class="nav-item">
+            <button onclick="setCookie('theclasses','', '10')"> Sign Out </button>
+
+          </li>
         </ul>
 
       </div>
@@ -54,10 +58,27 @@
   </nav>
 
   <p id="output"></p>
-
+  <br/>
+  <br/>
   <script>
+    // Function to set the default value of the date picker to the current date
+    function setCurrentDate() {
+      var currentDate = new Date();
+      var year = currentDate.getFullYear();
+      var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+      var day = ('0' + currentDate.getDate()).slice(-2);
+      var formattedDate = year + '-' + month + '-' + day;
+      
+      document.getElementById('useDate').value = formattedDate;
+    }
     
+    // Call the function when the page is loaded
+    window.onload = setCurrentDate;
   </script>
+
+<input class="white myinput left-a" aria-hidden="true" type="date" id="useDate" name="useDate" min="2023-09-04" max="2024-06-14" size="500" />
+
+
 
 
 

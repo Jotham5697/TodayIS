@@ -57,13 +57,13 @@
     <div class="container text-center">
         <div class="row align-items-center">
             <div class="col-4 white">
+
                 <form class="container" method="post" action="/dayOff">
                     <br />
                     <br />
 
                     <label for="useDate" class="white left-a">Select Day Off: </label>
-                    <input class="white myinput left-a" aria-hidden="true" type="date" id="date" name="useDate"
-                        min="2023-09-04" max="2024-06-14" size="500" />
+                    <input class="white myinput left-a" aria-hidden="true" type="date" id="addDateOff" name="addDateOff" min="2023-09-04" max="2024-06-14" size="500" />
                     <br />
                     <br />
 
@@ -85,14 +85,9 @@
 
                 <script>
                     function deleteAllCookies() {
-                        const cookies = document.cookie.split(";");
-
-                        for (let i = 0; i < cookies.length; i++) {
-                            const cookie = cookies[i];
-                            const eqPos = cookie.indexOf("=");
-                            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-                            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-                        }
+                        document.cookie = "theclasses; expires=Thu, 18 Dec 2013 12:00:00 UTC";
+                        //window.location = "/";
+                        console.log("cookies should be clexared");
                     }
                 </script>
 

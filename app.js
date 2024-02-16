@@ -13,8 +13,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const { Int32 } = require("mongodb");
 // const { MongoClient } = require('mongodb');
-const cors = require('cors');
-app.use(cors());
+// const cors = require('cors');
+// app.use(cors());
 //var localStorage = require('localStorage');
 //Neccesary Packages and Tools
 
@@ -74,7 +74,6 @@ let reasons = new Array(); //creates empty array for user's class info to be sto
 app.get('/', async function (req, res) {
   let hasData = req.cookies.hasDayOffData;
  
-
   if (hasData !== "true") {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
     //console.log(allDaysOff);
@@ -83,9 +82,10 @@ app.get('/', async function (req, res) {
       datesoff.push(dayoff.dateOff);
       reasons.push(dayoff.reason);
     });
+    res.cookie("hasDayOffData", "true");
     res.cookie("allDatesOFf", JSON.stringify(datesoff), { overwrite: true });
     res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
-    res.cookie("hasDayOffData", "true");
+    
   }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
@@ -151,36 +151,17 @@ app.post("/signUp.html", function (req, res) {
 let classes = new Array(); //creates empty array for user's class info to be stored in
 
 
-app.post("/login.html", async function (req, res) {
-  res.clearCookie("theclasses");
+app.post("/login.html", async function (req, res){
   usernameInput = String(req.body.userNameInput);
-
-  const userClasses = await User.find({ username: usernameInput }, "classes").exec(); //pulls raw userdata of class names from db 
-  var classesString = String(userClasses); //turn raw data into useable string  
-  let useString = classesString.substring(classesString.indexOf("[") + 3) //delete uneccesary id and preliminary info from string
-
-
-  let start = 0; //create pointer for start of class name 
-  let end = 0; //create pointer for end of class name 
-  let useClass = "";  //used to store the current class name being parsed from the string
-  let useString2 = ""; //initialize second string to aid in parsing process (ie for 'a' creates new string of a' to be able to find closing quote)
-
-  while (useString.indexOf("'") > -1) { //while string still has quotes in it (meaning still has elements)
-    start = useString.indexOf("'") + 1; //start parsing string from after the opening ' 
-    useString2 = useString.substring(start); //create new string of everything after opening '
-
-    end = start + useString2.indexOf("'"); //find end point of where to parse which is where the closing ' appears
-    useClass = useString.substring(start, end);  //grabs Class Name and stores it as UseClass
-    classes.push(useClass); //adds class into array
-
-
-    useString = useString.substring(end + 3); //effectively removes the class just looked at from the string to iterate through again 
+  const userUsing = await User.findOne({username: usernameInput}).exec();
+  if (userUsing === null){
+    res.send(" <script> alert('User Not Found'); window.location.href = '/login.html'</script>");
   }
-  // res.status(200).json(classes); //returns JSON object with all of the users classes
-  res.cookie("theclasses", JSON.stringify(classes));
-  res.cookie("loggedin", "true");
-  res.sendFile(__dirname + '/templates/index.html');
-});
+  else{
+    res.cookie("theclasses", JSON.stringify(userUsing.classes));
+    res.sendFile(__dirname + '/templates/index.html');
+  } 
+})
 
 const dayOffSchema = {
   dateOff: String,
@@ -192,10 +173,10 @@ const dayOff = mongoose.model("dayOff", dayOffSchema);
 
 
 app.post("/dayOff", function (req, res) {
-  let DateOff = req.body.useDate;
+  let DateOff = req.body.addDateOff;
   let reason = req.body.reasonDayOff;
   let newDateOff = new dayOff({
-    dateOff: req.body.useDate,
+    dateOff: req.body.addDateOff,
     reason: req.body.reasonDayOff
   });
   newDateOff.save();
