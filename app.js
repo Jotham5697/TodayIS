@@ -73,19 +73,23 @@ let reasons = new Array(); //creates empty array for user's class info to be sto
 
 app.get('/', async function (req, res) {
   let hasData = req.cookies.hasDayOffData;
- 
+
   if (hasData !== "true") {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
     //console.log(allDaysOff);
     allDaysOff.forEach((dayoff) => {
-
+console.log(dayOff)
       datesoff.push(dayoff.dateOff);
       reasons.push(dayoff.reason);
     });
     res.cookie("hasDayOffData", "true");
     res.cookie("allDatesOFf", JSON.stringify(datesoff), { overwrite: true });
     res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
-    
+
+    const importantInformation = await importantInfo.find({ reasonImportant: { $regex: "Tri"}}, "-_id").exec()
+    importantInformation.forEach((importantInfo) =>{
+      res.cookie(importantInfo.reasonImportant, importantInfo.infoImportant);
+    })
   }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
@@ -151,16 +155,16 @@ app.post("/signUp.html", function (req, res) {
 let classes = new Array(); //creates empty array for user's class info to be stored in
 
 
-app.post("/login.html", async function (req, res){
+app.post("/login.html", async function (req, res) {
   usernameInput = String(req.body.userNameInput);
-  const userUsing = await User.findOne({username: usernameInput}).exec();
-  if (userUsing === null){
+  const userUsing = await User.findOne({ username: usernameInput }).exec();
+  if (userUsing === null) {
     res.send(" <script> alert('User Not Found'); window.location.href = '/login.html'</script>");
   }
-  else{
+  else {
     res.cookie("theclasses", JSON.stringify(userUsing.classes));
     res.sendFile(__dirname + '/templates/index.html');
-  } 
+  }
 })
 
 const dayOffSchema = {
@@ -169,8 +173,6 @@ const dayOffSchema = {
 }
 
 const dayOff = mongoose.model("dayOff", dayOffSchema);
-
-
 
 app.post("/dayOff", function (req, res) {
   let DateOff = req.body.addDateOff;
@@ -185,6 +187,15 @@ app.post("/dayOff", function (req, res) {
   console.log(typeof (DateOff));
   res.send(" <script> alert('New Day Off Added!'); window.location.href = '/admin.html'</script>");
 })
+
+const importantInfoSchema = {
+  reasonImportant: String,
+  infoImportant: String
+}
+
+const importantInfo = mongoose.model("importantInfo", importantInfoSchema);
+
+
 
 
 

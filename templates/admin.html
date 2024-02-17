@@ -55,41 +55,54 @@
 
 
     <div class="container text-center">
-        <div class="row align-items-center">
+        <div class="row align-items-left">
             <div class="col-4 white">
-
+                <!-- Left of Add Day Off -->
+            </div>
+            <div class="col-4 white col align-self-center">
                 <form class="container" method="post" action="/dayOff">
-                    <br />
-                    <br />
+                    <label for="useDate" class="white">Select Day Off: </label>
+                    <br>
+                    <input class="white myinput" aria-hidden="true" type="date" id="addDateOff" name="addDateOff"
+                        min="2023-09-04" max="2024-06-14" size="500" />
+                    <br>
+                    <br>
+                    <label for="reasonDayOff">Reason for Day Off: </label>
+                    <input class="form-control myinput white" name="reasonDayOff" id="reasonDayOff">
+                    <br>
+                    <button class="white myinput"> Add Day Off</button>
+                </form>
+                <br>
+            </div>
+            <div class="col-4 white">
+                <!-- Right of add day off -->
+            </div>
 
-                    <label for="useDate" class="white left-a">Select Day Off: </label>
-                    <input class="white myinput left-a" aria-hidden="true" type="date" id="addDateOff" name="addDateOff" min="2023-09-04" max="2024-06-14" size="500" />
-                    <br />
-                    <br />
-
-                    <p>Reason for Day Off: </p>
-                    <input class="form-control myinput white" name="reasonDayOff">
-                    <br />
-                    <button class="white myinput text-center"> Add Day Off</button>
+            <div class="col-4 white">
+                <form method="post" action="/infoAdd">
+                    <input class="form-control myinput white" name="reasonImportantInfo" id="reasonImportantInfo">
+                    <!-- <input class="form-control myinput white" name="InfoImportant" id="InfoImportant"> -->
+                    <select class="form-select form-select-sm" aria-label="Small select example"
+                                        name="InfoImportant">
+                                        <option selected value="1"> A </option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                        <option value="4">D</option>
+                                        <option value="5">E</option>
+                                        <option value="6">F</option>
+                                        <option value="7">G</option>
+                                        <option value="0">H</option>
+                                    </select>
+                    <button class="white myinput"> Submit</button>
                 </form>
             </div>
+
             <div class="col-4 white">
-                One of three columns
-            </div>
-            <div class="col-4 white">
-                One of three columns
+                Trimester 2 Info:
             </div>
 
             <div class="col-4 white">
-                <button onclick="deleteAllCookies()"> Sign Out </button>
-
-                <script>
-                    function deleteAllCookies() {
-                        document.cookie = "theclasses; expires=Thu, 18 Dec 2013 12:00:00 UTC";
-                        //window.location = "/";
-                        console.log("cookies should be clexared");
-                    }
-                </script>
+                Trimester 3 Info:
 
             </div>
 
