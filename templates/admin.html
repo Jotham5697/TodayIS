@@ -79,21 +79,31 @@
             </div>
 
             <div class="col-4 white">
-                <form method="post" action="/infoAdd">
-                    <input class="form-control myinput white" name="reasonImportantInfo" id="reasonImportantInfo">
-                    <!-- <input class="form-control myinput white" name="InfoImportant" id="InfoImportant"> -->
+                <h4>Trimester 1 Information</h4>
+                <form method="post" action="/addTrimesterInfo">
+                    <br>
+                    <label for="trimesterStartingDate"  class="white">Start Date (T1): </label>
+                    <input type="date" id="trimesterStartingDate" name="trimesterStartingDate">
+                    <br>
+                    <label for="trimesterEndingDate"  class="white">End Date (T1): </label>
+                    <input type="date" id="trimesterEndingDate" name="trimesterEndingDate">
+                    <br>
+                    <label for="trimesterStartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
                     <select class="form-select form-select-sm" aria-label="Small select example"
-                                        name="InfoImportant">
-                                        <option selected value="1"> A </option>
-                                        <option value="2">B</option>
-                                        <option value="3">C</option>
-                                        <option value="4">D</option>
-                                        <option value="5">E</option>
-                                        <option value="6">F</option>
-                                        <option value="7">G</option>
-                                        <option value="0">H</option>
-                                    </select>
-                    <button class="white myinput"> Submit</button>
+                        name="trimesterStartingDayBlock">
+                        <option selected value=1>Day A</option>
+                        <option value=2>Day B</option>
+                        <option value=3>Day C</option>
+                        <option value=4>Day D</option>
+                        <option value=5>Day E</option>
+                        <option value=6>Day F</option>
+                        <option value=7>Day G</option>
+                        <option value=0>Day H</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="white myinput"> Update Trimester 1 Information</button>
+                    
                 </form>
             </div>
 
@@ -115,7 +125,7 @@
 
 
 
-
+    <script src="/admin.js" type="text/javascript"> </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

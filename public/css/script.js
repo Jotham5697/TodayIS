@@ -1,25 +1,29 @@
-
-
 let classesCookie = decodeURIComponent (document.cookie);  
-
 console.log("classes: " + getCookie("theclasses"));
-
 console.log(classesCookie); 
-
-// function deleteCookie(name) {
-//     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-//     window.location= "/" ;
-// }
-
-
-
-
-
 console.log("This is working from script.js");
-
-// var display = "displaying";
-
 document.getElementById("output").innerHTML = classesCookie; 
+
+function setCurrentDate() {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+    var day = ('0' + currentDate.getDate()).slice(-2);
+    var formattedDate = year + '-' + month + '-' + day;
+    
+    document.getElementById('useDate').value = formattedDate;
+  }
+  
+  // Call the function when the page is loaded
+window.onload = setCurrentDate;
+
+
+
+
+
+
+
+
 
 
 

@@ -25,6 +25,13 @@ app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+const {createHash} = require('node:crypto'); 
+
+function hash(string){
+  return createHash('sha256').update(string).digest('hex');
+};
+
 //mongoose.connect("mongodb+srv://JothamK06:Pazzword12345697@todayis.hbmzteg.mongodb.net/UserInfo");
 mongoose.connect("mongodb+srv://JothamK2006:Pazzword5697@todayis.upznmwp.mongodb.net/TodayIsUse")
 
@@ -49,8 +56,7 @@ app.listen(5000, function () {
 const userSchema = {
   username: String,
   password: String,
-  fname: String,
-  lname: String,
+  name: String,
   isHS: Boolean,
 
   classes: Array,
@@ -72,24 +78,23 @@ let reasons = new Array(); //creates empty array for user's class info to be sto
 
 
 app.get('/', async function (req, res) {
-  let hasData = req.cookies.hasDayOffData;
-
+  let hasData = req.cookies.hasNeccesaryData;
   if (hasData !== "true") {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
     //console.log(allDaysOff);
     allDaysOff.forEach((dayoff) => {
-console.log(dayOff)
       datesoff.push(dayoff.dateOff);
       reasons.push(dayoff.reason);
     });
-    res.cookie("hasDayOffData", "true");
-    res.cookie("allDatesOFf", JSON.stringify(datesoff), { overwrite: true });
+    res.cookie("hasNeccesaryData", "true");
+    res.cookie("allDatesOff", JSON.stringify(datesoff), { overwrite: true });
     res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
-
-    const importantInformation = await importantInfo.find({ reasonImportant: { $regex: "Tri"}}, "-_id").exec()
-    importantInformation.forEach((importantInfo) =>{
-      res.cookie(importantInfo.reasonImportant, importantInfo.infoImportant);
-    })
+    const importantTrimesterInfo = await trimesterInfo.find({trimester: {$lt: 4}}, "-_id").exec(); 
+    importantTrimesterInfo.forEach((trimesterInfo) => {
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDate",  trimesterInfo.startDate);
+      res.cookie("Tri" + trimesterInfo.trimester + "EndDate",  trimesterInfo.endDate);
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock",  trimesterInfo.startDateBlock);
+    })   
   }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
@@ -133,9 +138,8 @@ app.post("/signUp.html", function (req, res) {
 
     let newUser = new User({
       username: req.body.username,
-      password: req.body.password,
-      fname: req.body.fname,
-      lname: req.body.lname,
+      password: hash(req.body.password),
+      name: req.body.name,
       isHS: isHS(req.body.isHS),
 
       classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
@@ -161,8 +165,16 @@ app.post("/login.html", async function (req, res) {
   if (userUsing === null) {
     res.send(" <script> alert('User Not Found'); window.location.href = '/login.html'</script>");
   }
+  else if(userUsing.password !== hash(req.body.passwordInput)){
+    res.send(" <script> alert('Incorrect Password, Try Again'); window.location.href = '/login.html'</script>");
+  }
   else {
-    res.cookie("theclasses", JSON.stringify(userUsing.classes));
+    res.cookie("clientClasses", JSON.stringify(userUsing.classes));
+    res.cookie("clientHls", JSON.stringify(userUsing.isHL));
+    res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
+    res.cookie("clientName", JSON.stringify(userUsing.name));
+    res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
+    res.cookie("loggedIn", "true"); 
     res.sendFile(__dirname + '/templates/index.html');
   }
 })
@@ -188,12 +200,16 @@ app.post("/dayOff", function (req, res) {
   res.send(" <script> alert('New Day Off Added!'); window.location.href = '/admin.html'</script>");
 })
 
-const importantInfoSchema = {
-  reasonImportant: String,
-  infoImportant: String
+const trimesterInfoSchema = {
+trimester: Number, 
+startDate: String, 
+endDate: String,
+startDateBlock: Number   
 }
 
-const importantInfo = mongoose.model("importantInfo", importantInfoSchema);
+const trimesterInfo = mongoose.model("trimesterInfo", trimesterInfoSchema);
+
+
 
 
 
