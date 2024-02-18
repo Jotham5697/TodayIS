@@ -79,6 +79,7 @@ let reasons = new Array(); //creates empty array for user's class info to be sto
 
 app.get('/', async function (req, res) {
   let hasData = req.cookies.hasNeccesaryData;
+  console.log("hasNeccesaryData: " + hasData)
   if (hasData !== "true") {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
     //console.log(allDaysOff);

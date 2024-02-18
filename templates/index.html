@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  
+
 
 
 
@@ -48,7 +48,7 @@
             <a class="nav-link white" href="user.html">User Profile</a>
           </li>
           <li class="nav-item">
-            <button onclick="setCookie('theclasses','', '10')"> Sign Out </button>
+            <button onclick="setCookie('clientClasses','', '10'); setCookie('clientHls','', '10'); setCookie('clientLunch','', '10'); setCookie('clientName','', '10'); setCookie('clientisHS','', '10'); setCookie('loggedIn','false', '10'); "> Sign Out </button>
 
           </li>
         </ul>
@@ -58,21 +58,272 @@
   </nav>
 
   <p id="output"></p>
-  <br/>
-  <br/>
-
-<!-- This is the Selection Box for the Date -->
-<input class="white myinput left-a" aria-hidden="true" type="date" id="useDate" name="useDate" min="2023-09-04" max="2024-06-14" size="500" />
 
 
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col-12 white">
+        <!-- This is the Selection Box for the Date -->
+        <form>
+          <label for="useDate">Schedule for Week Of: </label>
+          <input class="white myinput left-a" aria-hidden="true" type="date" id="stringUseDate" name="stringUseDate"
+            min="2023-09-04" max="2024-06-14" size="500" oninput = "setUseDate()"/>
+          <button class="white myinput" onclick = "setUseDate()"> See Schedule</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container text-center">
+    <!-- Date Info Row (Block Day + Date) -->
+    <div class="row white align-text-center">
+      <div class="col border">
+        <p id="mondayBlockDate">tree</p>
+        <p id="mondayDate">tree</p>
+      </div>
+      <div class="col border">
+          Date Info
+          <br>
+          Time 
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!-- HL Morning Extension Row  -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+
+      </div>
+      <div class="col border">
+        <p>
+          Possible HL Extension
+          <br>
+          Time
+        </p>
+        
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!-- 1st Period Row -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+      </div>
+      <div class="col border"> 
+        <br>
+        <p>
+          Class Name
+          <br>
+          Time
+        </p>
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  Advisory/Homeroom Row -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+      </div>
+      <div class="col border">
+        <p>
+          Advisory / Homeroom
+        <br>
+        Time
+        </p>
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  2nd Preiod Row -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+      </div>
+      <div class="col border">
+        <p>
+          <br>
+          Class Name
+          <br>
+          Time
+          <br>
+        </p>
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  3rd Preiod A lunch Row -->
+    <div class="row white">
+      <div class="col border border-bottom-0">
+        1 of 5
+      </div>
+      <div class="col border border-bottom-0">
+        <p>
+          Class Name or A Lunch
+        <br>
+        Time
+        </p>
+        
+      </div>
+      <div class="col border border-bottom-0">
+        3 of 5
+      </div>
+      <div class="col border border-bottom-0">
+        4 of 5
+      </div>
+      <div class="col border border-bottom-0">
+        5 of 5
+      </div>
+    </div>
+
+
+    <!--  3rd Period B Lunch Row -->
+    <div class="row white">
+      <div class="col border border-bottom-0 border-top-0">
+        1 of 5
+      </div>
+      <div class="col border border-bottom-0 border-top-0">
+        <p>
+          Class Name or B Lunch
+        <br>
+        Time Optional
+        </p>
+      </div>
+      <div class="col border border-bottom-0 border-top-0">
+        3 of 5
+      </div>
+      <div class="col border border-bottom-0 border-top-0">
+        4 of 5
+      </div>
+      <div class="col border border-bottom-0 border-top-0">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  3rd Period C Lunch Row -->
+    <div class="row white">
+      <div class="col border border-top-0">
+        1 of 5
+      </div>
+      <div class="col border border-top-0">
+        <p>
+          Class Name or C Lunch
+        <br>
+        Time Optional
+        </p>
+      </div>
+      <div class="col border border-top-0">
+        3 of 5
+      </div>
+      <div class="col border border-top-0">
+        4 of 5
+      </div>
+      <div class="col border border-top-0">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  4th Period Row -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+      </div>
+      <div class="col border">
+        <p>
+          <br>
+          Class Name
+          <br>
+          Time
+          <br>
+        </p>
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        4 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+    <!--  Afternoon Extension Row -->
+    <div class="row white">
+      <div class="col border">
+        1 of 5
+      </div>
+      <div class="col border">
+       <p>
+        Hl Afternoon Extension
+      <br>
+      Time
+      </p>
+      </div>
+      <div class="col border">
+        3 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+      <div class="col border">
+        5 of 5
+      </div>
+    </div>
+
+  </div>
 
 
 
 
 
-  
 
-<script src="/script.js" type="text/javascript">  </script>
+
+  <script src="/script.js" type="text/javascript">  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
