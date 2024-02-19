@@ -80,18 +80,18 @@
 
             <div class="col-4 white">
                 <h4>Trimester 1 Information</h4>
-                <form method="post" action="/addTrimesterInfo">
+                <form method="post" action="/updateTrimesterInfo">
+                    <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="1" />
+                    <label for="trimester1StartingDate"  class="white">Start Date (T1): </label>
+                    <input type="date" id="trimester1StartingDate" name="trimester1StartingDate" class="white myinput">
                     <br>
-                    <label for="trimesterStartingDate"  class="white">Start Date (T1): </label>
-                    <input type="date" id="trimesterStartingDate" name="trimesterStartingDate">
+                    <label for="trimester1EndingDate"  class="white">End Date (T1): </label>
+                    <input type="date" id="trimester1EndingDate" name="trimester1EndingDate" class="white myinput">
                     <br>
-                    <label for="trimesterEndingDate"  class="white">End Date (T1): </label>
-                    <input type="date" id="trimesterEndingDate" name="trimesterEndingDate">
-                    <br>
-                    <label for="trimesterStartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
-                    <select class="form-select form-select-sm" aria-label="Small select example"
-                        name="trimesterStartingDayBlock">
-                        <option selected value=1>Day A</option>
+                    <label for="trimester1StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <select class="form-select form-select-sm white myinput" aria-label="Small select example"
+                        name="trimester1StartingDayBlock" id="trimester1StartingDayBlock">
+                        <option value=1>Day A</option>
                         <option value=2>Day B</option>
                         <option value=3>Day C</option>
                         <option value=4>Day D</option>
@@ -108,11 +108,61 @@
             </div>
 
             <div class="col-4 white">
-                Trimester 2 Info:
+                <h4>Trimester 2 Information</h4>
+                <form method="post" action="/updateTrimesterInfo">
+                    <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="2" />
+                    <label for="trimester2StartingDate"  class="white">Start Date (T2): </label>
+                    <input type="date" id="trimester2StartingDate" name="trimester2StartingDate" class="white myinput">
+                    <br>
+                    <label for="trimester2EndingDate"  class="white">End Date (T2): </label>
+                    <input type="date" id="trimester2EndingDate" name="trimester2EndingDate" class="white myinput">
+                    <br>
+                    <label for="trimester2StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <select class="form-select form-select-sm white myinput" aria-label="Small select example"
+                        name="trimester2StartingDayBlock" id="trimester2StartingDayBlock">
+                        <option value=1>Day A</option>
+                        <option value=2>Day B</option>
+                        <option value=3>Day C</option>
+                        <option value=4>Day D</option>
+                        <option value=5>Day E</option>
+                        <option value=6>Day F</option>
+                        <option value=7>Day G</option>
+                        <option value=0>Day H</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="white myinput"> Update Trimester 2 Information</button>
+                    
+                </form>
             </div>
 
             <div class="col-4 white">
-                Trimester 3 Info:
+                <h4>Trimester 3 Information</h4>
+                <form method="post" action="/updateTrimesterInfo">
+                    <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="3" />
+                    <label for="trimester3StartingDate"  class="white">Start Date (T3): </label>
+                    <input type="date" id="trimester3StartingDate" name="trimester3StartingDate" class="white myinput">
+                    <br>
+                    <label for="trimester3EndingDate"  class="white">End Date (T3): </label>
+                    <input type="date" id="trimester3EndingDate" name="trimester3EndingDate" class="white myinput">
+                    <br>
+                    <label for="trimester3StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <select class="form-select form-select-sm white myinput" aria-label="Small select example"
+                        name="trimester3StartingDayBlock" id="trimester1StartingDayBlock">
+                        <option value=1>Day A</option>
+                        <option value=2>Day B</option>
+                        <option value=3>Day C</option>
+                        <option value=4>Day D</option>
+                        <option value=5>Day E</option>
+                        <option value=6>Day F</option>
+                        <option value=7>Day G</option>
+                        <option value=0>Day H</option>
+                    </select>
+                    <br>
+                    <br>
+                    <button class="white myinput"> Update Trimester 3 Information</button>
+                    
+                </form>
 
             </div>
 

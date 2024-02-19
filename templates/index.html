@@ -67,7 +67,7 @@
         <form>
           <label for="useDate">Schedule for Week Of: </label>
           <input class="white myinput left-a" aria-hidden="true" type="date" id="stringUseDate" name="stringUseDate"
-            min="2023-09-04" max="2024-06-14" size="500" oninput = "setUseDate()"/>
+           size="500" oninput = "setUseDate()"/>
           <button class="white myinput" onclick = "setUseDate()"> See Schedule</button>
         </form>
 
@@ -80,22 +80,24 @@
     <!-- Date Info Row (Block Day + Date) -->
     <div class="row white align-text-center">
       <div class="col border">
-        <p id="mondayBlockDate">tree</p>
-        <p id="mondayDate">tree</p>
+        <p id="mondayDate"></p>
+        <p id="mondayBlockDate"></p>
       </div>
       <div class="col border">
-          Date Info
-          <br>
-          Time 
+        <p id="tuesdayDate"></p>
+        <p id="tuesdayBlockDate"></p> 
       </div>
       <div class="col border">
-        3 of 5
+        <p id="wednesdayDate"></p>
+        <p id="wednesdayBlockDate"></p>
       </div>
       <div class="col border">
-        4 of 5
+        <p id="thursdayDate"></p>
+        <p id="thursdayBlockDate"></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id="fridayDate"></p>
+        <p id="fridayBlockDate"></p>
       </div>
     </div>
 
@@ -205,7 +207,15 @@
         <p>
           Class Name or A Lunch
         <br>
-        Time
+        Time A
+        <hr>
+          Class Name or B Lunch 
+        <br>
+        Time B  
+        <hr>
+        Class Name or C Lunch
+        <br>
+        Time C
         </p>
         
       </div>
@@ -220,52 +230,6 @@
       </div>
     </div>
 
-
-    <!--  3rd Period B Lunch Row -->
-    <div class="row white">
-      <div class="col border border-bottom-0 border-top-0">
-        1 of 5
-      </div>
-      <div class="col border border-bottom-0 border-top-0">
-        <p>
-          Class Name or B Lunch
-        <br>
-        Time Optional
-        </p>
-      </div>
-      <div class="col border border-bottom-0 border-top-0">
-        3 of 5
-      </div>
-      <div class="col border border-bottom-0 border-top-0">
-        4 of 5
-      </div>
-      <div class="col border border-bottom-0 border-top-0">
-        5 of 5
-      </div>
-    </div>
-
-    <!--  3rd Period C Lunch Row -->
-    <div class="row white">
-      <div class="col border border-top-0">
-        1 of 5
-      </div>
-      <div class="col border border-top-0">
-        <p>
-          Class Name or C Lunch
-        <br>
-        Time Optional
-        </p>
-      </div>
-      <div class="col border border-top-0">
-        3 of 5
-      </div>
-      <div class="col border border-top-0">
-        4 of 5
-      </div>
-      <div class="col border border-top-0">
-        5 of 5
-      </div>
-    </div>
 
     <!--  4th Period Row -->
     <div class="row white">

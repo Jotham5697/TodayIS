@@ -26,9 +26,9 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const {createHash} = require('node:crypto'); 
+const { createHash } = require('node:crypto');
 
-function hash(string){
+function hash(string) {
   return createHash('sha256').update(string).digest('hex');
 };
 
@@ -90,12 +90,12 @@ app.get('/', async function (req, res) {
     res.cookie("hasNeccesaryData", "true");
     res.cookie("allDatesOff", JSON.stringify(datesoff), { overwrite: true });
     res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
-    const importantTrimesterInfo = await trimesterInfo.find({trimester: {$lt: 4}}, "-_id").exec(); 
+    const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDate",  trimesterInfo.startDate);
-      res.cookie("Tri" + trimesterInfo.trimester + "EndDate",  trimesterInfo.endDate);
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock",  trimesterInfo.startDateBlock);
-    })   
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
+      res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+    })
   }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
@@ -166,7 +166,7 @@ app.post("/login.html", async function (req, res) {
   if (userUsing === null) {
     res.send(" <script> alert('User Not Found'); window.location.href = '/login.html'</script>");
   }
-  else if(userUsing.password !== hash(req.body.passwordInput)){
+  else if (userUsing.password !== hash(req.body.passwordInput)) {
     res.send(" <script> alert('Incorrect Password, Try Again'); window.location.href = '/login.html'</script>");
   }
   else {
@@ -175,7 +175,7 @@ app.post("/login.html", async function (req, res) {
     res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
     res.cookie("clientName", JSON.stringify(userUsing.name));
     res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
-    res.cookie("loggedIn", "true"); 
+    res.cookie("loggedIn", "true");
     res.sendFile(__dirname + '/templates/index.html');
   }
 })
@@ -202,13 +202,75 @@ app.post("/dayOff", function (req, res) {
 })
 
 const trimesterInfoSchema = {
-trimester: Number, 
-startDate: String, 
-endDate: String,
-startDateBlock: Number   
+  trimester: Number,
+  startDate: String,
+  endDate: String,
+  startDateBlock: Number
 }
 
 const trimesterInfo = mongoose.model("trimesterInfo", trimesterInfoSchema);
+
+app.post("/updateTrimesterInfo", async function (req, res) {
+  //pull hidden input that recognizes which trimester is being edited
+  let trimester = req.body.trimesterNumber;
+  console.log(trimester);
+
+  if (trimester === "1") {
+    var startDate = req.body.trimester1StartingDate; //pull start date from date picker 
+    var endDate = req.body.trimester1EndingDate; //pull end date from date picker
+    var startDateBlock = req.body.trimester1StartingDayBlock; //pull the starting block from the date picker
+    if (new Date(startDate).getTime() >= new Date(endDate).getTime()) { //is the start date is equal to or greater then end date then send message
+      res.send(" <script> alert('Trimester Start Date Cannot be the Same Day or After the Trimester End Date'); window.location.href = '/admin.html'</script>")
+    } else { //if start date is less then end date update respective trimester data
+      let update = await trimesterInfo.findOneAndUpdate({ trimester: 1 }, { $set: { startDate: startDate, endDate: endDate, startDateBlock: startDateBlock } });
+
+      //then pull new updated data from db amd send a cookie to update value on client side 
+      const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
+      importantTrimesterInfo.forEach((trimesterInfo) => {
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+      })
+    }
+  } else if (trimester === "2") {
+
+    var startDate = req.body.trimester2StartingDate;
+    var endDate = req.body.trimester2EndingDate;
+    var startDateBlock = req.body.trimester2StartingDayBlock;
+    if (new Date(startDate).getTime() >= new Date(endDate).getTime()) {
+      res.send(" <script> alert('Trimester Start Date Cannot be the Same Day or After the Trimester End Date'); window.location.href = '/admin.html'</script>")
+    } else {
+      let update = await trimesterInfo.findOneAndUpdate({ trimester: 2 }, { $set: { startDate: startDate, endDate: endDate, startDateBlock: startDateBlock } });
+
+      const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
+      importantTrimesterInfo.forEach((trimesterInfo) => {
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+      })
+    }
+  } else {
+    var startDate = req.body.trimester3StartingDate;
+    var endDate = req.body.trimester3EndingDate;
+    var startDateBlock = req.body.trimester3StartingDayBlock;
+    if (new Date(startDate).getTime() >= new Date(endDate).getTime()) {
+      res.send(" <script> alert('Trimester Start Date Cannot be the Same Day or After the Trimester End Date'); window.location.href = '/admin.html'</script>")
+    } else {
+      let update = await trimesterInfo.findOneAndUpdate({ trimester: 3 }, { $set: { startDate: startDate, endDate: endDate, startDateBlock: startDateBlock } });
+
+      const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
+      importantTrimesterInfo.forEach((trimesterInfo) => {
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+      })
+    }
+  }
+
+  //after update go back to admin page 
+  res.sendFile(__dirname + '/templates/admin.html');
+
+});
 
 
 
