@@ -48,7 +48,9 @@
             <a class="nav-link white" href="user.html">User Profile</a>
           </li>
           <li class="nav-item">
-            <button onclick="setCookie('clientClasses','', '10'); setCookie('clientHls','', '10'); setCookie('clientLunch','', '10'); setCookie('clientName','', '10'); setCookie('clientisHS','', '10'); setCookie('loggedIn','false', '10'); "> Sign Out </button>
+            <button
+              onclick="setCookie('clientClasses','', '10'); setCookie('clientHls','', '10'); setCookie('clientLunch','', '10'); setCookie('clientName','', '10'); setCookie('clientisHS','', '10'); setCookie('loggedIn','false', '10'); ">
+              Sign Out </button>
 
           </li>
         </ul>
@@ -67,8 +69,8 @@
         <form>
           <label for="useDate">Schedule for Week Of: </label>
           <input class="white myinput left-a" aria-hidden="true" type="date" id="stringUseDate" name="stringUseDate"
-           size="500" oninput = "setUseDate()"/>
-          <button class="white myinput" onclick = "setUseDate()"> See Schedule</button>
+            size="500" oninput="setUseDate()" />
+          <button class="white myinput" onclick="setUseDate()"> See Schedule</button>
         </form>
 
       </div>
@@ -85,7 +87,7 @@
       </div>
       <div class="col border">
         <p id="tuesdayDate"></p>
-        <p id="tuesdayBlockDate"></p> 
+        <p id="tuesdayBlockDate"></p>
       </div>
       <div class="col border">
         <p id="wednesdayDate"></p>
@@ -104,129 +106,154 @@
     <!-- HL Morning Extension Row  -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        <p id=monMonrningHL></p>
+        <p id=monMonrningHLTime></p>
 
       </div>
       <div class="col border">
-        <p>
-          Possible HL Extension
-          <br>
-          Time
-        </p>
-        
+        <p id=tueMonrningHL></p>
+        <p id=tueMonrningHLTime></p>
+
       </div>
       <div class="col border">
-        3 of 5
+        <p id=wedMonrningHL></p>
+        <p id=wedMonrningHLTime></p>
       </div>
       <div class="col border">
-        4 of 5
+        <p id=thurMonrningHL></p>
+        <p id=thurMonrningHLTime></p>
+
       </div>
       <div class="col border">
-        5 of 5
+        <p id=friMonrningHL></p>
+        <p id=friMonrningHLTime></p>
       </div>
     </div>
 
     <!-- 1st Period Row -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        <p id="mon1stClass"></p>
+        <p id="mon1stTime"></p>
       </div>
-      <div class="col border"> 
-        <br>
-        <p>
-          Class Name
-          <br>
-          Time
+      <div class="col border">
+        <p id="tue1stClass"></p>
+        <p id="tue1stTime"></p>
         </p>
       </div>
       <div class="col border">
-        3 of 5
+        <p id="wed1stClass"></p>
+        <p id="wed1stTime"></p>
       </div>
       <div class="col border">
-        4 of 5
+        <p id="thur1stClass"></p>
+        <p id="thur1stTime"></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id="fri1stClass"></p>
+        <p id="fri1stTime"></p>
       </div>
     </div>
 
     <!--  Advisory/Homeroom Row -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        Advisory
+        <p>9:55-10:25</p>
       </div>
       <div class="col border">
-        <p>
-          Advisory / Homeroom
-        <br>
-        Time
-        </p>
+        Homeroom
+        <p>9:55-10:05</p>
       </div>
       <div class="col border">
-        3 of 5
+        Advisory
+        <p>9:55-10:25</p>
       </div>
       <div class="col border">
-        4 of 5
+        Advisory
+        <p>9:55-10:25</p>
       </div>
       <div class="col border">
-        5 of 5
+        Homeroom
+        <p>9:55-10:05</p>
       </div>
     </div>
 
     <!--  2nd Preiod Row -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        <p id="mon2ndClass"></p>
+        <p id="mon2ndTime"></p>
       </div>
       <div class="col border">
-        <p>
-          <br>
-          Class Name
-          <br>
-          Time
-          <br>
-        </p>
+        <p id="tue2ndClass"></p>
+        <p id="tue2ndTime"></p>
       </div>
       <div class="col border">
-        3 of 5
+        <p id="wed2ndClass"></p>
+        <p id="wed2ndTime"></p>
       </div>
       <div class="col border">
-        4 of 5
+        <p id="thur2ndClass"></p>
+        <p id="thur2ndTime"></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id="fri2ndClass"></p>
+        <p id="fri2ndTime"></p>
       </div>
     </div>
 
     <!--  3rd Preiod A lunch Row -->
     <div class="row white">
       <div class="col border border-bottom-0">
-        1 of 5
-      </div>
-      <div class="col border border-bottom-0">
-        <p>
-          Class Name or A Lunch
-        <br>
-        Time A
+        <p id="monTop3rdClass"></p>
+        <p id="monTop3rdClassTime"></p>
         <hr>
-          Class Name or B Lunch 
-        <br>
-        Time B  
+        <p id="monMiddle3rdClass"></p>
+        <p id="monMiddle3rdClassTime"></p>
         <hr>
-        Class Name or C Lunch
-        <br>
-        Time C
-        </p>
-        
+        <p id="monBottom3rdClass"></p>
+        <p id="monBottom3rdClassTime"></p>
       </div>
       <div class="col border border-bottom-0">
-        3 of 5
+        <p id="tueTop3rdClass"></p>
+        <p id="tueTop3rdClassTime"></p>
+        <hr>
+        <p id="tueMiddle3rdClass"></p>
+        <p id="tueMiddle3rdClassTime"></p>
+        <hr>
+        <p id="tueBottom3rdClass"></p>
+        <p id="tueBottom3rdClassTime"></p>
       </div>
       <div class="col border border-bottom-0">
-        4 of 5
+        <p id="wedTop3rdClass"></p>
+        <p id="wedTop3rdClassTime"></p>
+        <hr>
+        <p id="wedMiddle3rdClass"></p>
+        <p id="wedMiddle3rdClassTime"></p>
+        <hr>
+        <p id="wedBottom3rdClass"></p>
+        <p id="wedBottom3rdClassTime"></p>
       </div>
       <div class="col border border-bottom-0">
-        5 of 5
+        <p id="thurTop3rdClass"></p>
+        <p id="thurTop3rdClassTime"></p>
+        <hr>
+        <p id="thurMiddle3rdClass"></p>
+        <p id="thurMiddle3rdClassTime"></p>
+        <hr>
+        <p id="thurBottom3rdClass"></p>
+        <p id="thurBottom3rdClassTime"></p>
+      </div>
+      <div class="col border border-bottom-0">
+        <p id="friTop3rdClass"></p>
+        <p id="friTop3rdClassTime"></p>
+        <hr>
+        <p id="friMiddle3rdClass"></p>
+        <p id="friMiddle3rdClassTime"></p>
+        <hr>
+        <p id="friBottom3rdClass"></p>
+        <p id="friBottom3rdClassTime"></p>
       </div>
     </div>
 
@@ -234,48 +261,48 @@
     <!--  4th Period Row -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        <p id="mon4thClass"></p>
+        <p id="mon4thTime"></p>
       </div>
       <div class="col border">
-        <p>
-          <br>
-          Class Name
-          <br>
-          Time
-          <br>
-        </p>
+        <p id="tue4thClass"></p>
+        <p id="tue4thTime"></p>
       </div>
       <div class="col border">
-        3 of 5
+        <p id="wed4thClass"></p>
+        <p id="wed4thTime"></p>
       </div>
       <div class="col border">
-        4 of 5
+        <p id="thur4thClass"></p>
+        <p id="thur4thTime"></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id="fri4thClass"></p>
+        <p id="fri4thTime"></p>
       </div>
     </div>
 
     <!--  Afternoon Extension Row -->
     <div class="row white">
       <div class="col border">
-        1 of 5
+        <p id=monAfternoonHL></p>
+        <p id=monAfternoonHLTime></p>
       </div>
       <div class="col border">
-       <p>
-        Hl Afternoon Extension
-      <br>
-      Time
-      </p>
+        <p id=tueAfternoonHL></p>
+        <p id=tueAfternoonHLTime></p>
       </div>
       <div class="col border">
-        3 of 5
+        <p id=wedAfternoonHL></p>
+        <p id=wedAfternoonHLTime></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id=thurAfternoonHL></p>
+        <p id=thurAfternoonHLTime></p>
       </div>
       <div class="col border">
-        5 of 5
+        <p id=friAfternoonHL></p>
+        <p id=friAfternoonHLTime></p>
       </div>
     </div>
 

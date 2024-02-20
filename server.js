@@ -224,7 +224,7 @@ app.post("/updateTrimesterInfo", async function (req, res) {
     } else { //if start date is less then end date update respective trimester data
       let update = await trimesterInfo.findOneAndUpdate({ trimester: 1 }, { $set: { startDate: startDate, endDate: endDate, startDateBlock: startDateBlock } });
 
-      //then pull new updated data from db amd send a cookie to update value on client side 
+      //then pull new updated data from db and send a cookie to update value on client side 
       const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
       importantTrimesterInfo.forEach((trimesterInfo) => {
         res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
