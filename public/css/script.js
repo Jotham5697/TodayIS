@@ -1,3 +1,5 @@
+// const { get } = require("mongoose");
+
 //Just to temp see cookies 
 let classesCookie = decodeURIComponent(document.cookie);
 console.log("classes: " + getCookie("theclasses"));
@@ -22,7 +24,7 @@ console.log("reasons " + reasonsAllDatesOff.length);
 
 //deletes any duplicate Days off (starts from the back and moves to the front of the array)
 for (let i = 0; i < allDatesOff.length; i++) {
-    for (let j = allDatesOff.length-1; j > i; j--) {
+    for (let j = allDatesOff.length - 1; j > i; j--) {
         if (compareDates(allDatesOff[i], allDatesOff[j]) === 0) {
             allDatesOff.splice(j, 1);
             reasonsAllDatesOff.splice(j, 1);
@@ -45,7 +47,75 @@ let tri3StartDate = convertStringDateToJSDate(getCookie("Tri3StartDate"));
 let tri3EndDate = convertStringDateToJSDate(getCookie("Tri3EndDate"));
 let tri3StartDateBlock = +getCookie("Tri3StartDateBlock");
 
-//note to self pull user info 
+
+
+//pull user info 
+
+
+if (userLoggedIn === "true") {
+    console.log("user Succesfully logged In");
+    var isHS = getCookie("clientIsHS");
+    var clientName = getCookie("clientName");
+
+    var clientClasses = getCookie("clientClasses");
+    clientClasses = JSON.parse(clientClasses);
+
+    var clientHLs = getCookie("clientHls");
+    clientHLs = JSON.parse(clientHLs);
+
+    var clientLunches = getCookie("clientLunch");
+    clientLunches = JSON.parse(clientLunches);
+
+    console.log(isHS);
+    console.log(clientName);
+    console.log(clientClasses);
+    console.log(clientHLs);
+    console.log(clientLunches)
+
+    if (isHS === "false") {
+        var firstClassTime = "8:35-9:50";
+
+        var mwth2ndClassTime = "10:30-11:45";
+        var mwthLunch = "11:50-12:30";
+        var mwth3rdClassTime = "12:35-1:20";
+        var mwthRecess = "1:20-1:50";
+        var mwth4thClassTime = "2:00-3:15";
+
+        var tf2ndClassTime = "10:10-11:25";
+        var tfLunch = "11:30-12:10";
+        var tf3rdClassTime = "12:15-1:00";
+        var tfRecess = "1:00-1:30";
+        var tf4thClassTime = "2:40-2:55";
+
+    } else {
+
+        var morningExtension = "8:10-8:30";
+
+        var firstClassTime = "8:30-9:50";
+
+        var mwth2ndClassTime = "10:30-11:50";
+        var mwthTop3rdClassTime = "11:50-12:30";
+        var mwthMiddle3rdClassTime = "12:35-1:15";
+        var mwthBottom3rdClassTime = "1:15-1:55";
+        var mwth4thClassTime = "2:00-3:20";
+
+        var tf2ndClassTime = "10:10-11:30";
+        var tfTop3rdClassTime = "11:30-12:10";
+        var tfMiddle3rdClassTime = "12:15-12:55";
+        var tfBottom3rdClassTime = "12:55-1:35";
+        var tf4thClassTime = "1:40-3:00";
+
+
+        var mwthTopMiddle3rdClassTime = "11:50-1:15";
+        var mwthMiddleBottom3rdClassTime = "12:35-1:55";
+
+        var tfTopMiddle3rdClassTime = "11:30-12:55";
+        var tfMiddleBottom3rdClassTime = "12:15-1:55";
+
+        var mwthAfternoonExtension = "3:20-3:40";
+        var tfAfternoonExtension = "3:00-3:20";
+    }
+}
 
 
 
@@ -114,18 +184,18 @@ function generateIndexPage() {
 
     //first if use Date is between end of first trimester and start of second (therefore in winter break)
     if (compareDates(mondayUseDate, tri1EndDate) > 0 && compareDates(mondayUseDate, tri2StartDate) < 0) {
-        for (let i = 0; i < days.length; i++){
-        document.getElementById(getDayName(days[i])+"BlockDate").innerHTML = "Winter Break!!!";
-        daysLabel[i] = "Winter Break!!";
+        for (let i = 0; i < days.length; i++) {
+            document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = "Winter Break!!!";
+            daysLabel[i] = "Winter Break!!";
         }
     } //then check if between end of second trimester and start of third (spring break) 
     else if (compareDates(mondayUseDate, tri2EndDate) > 0 && compareDates(mondayUseDate, tri3StartDate) < 0) {
-        for (let i = 0; i < days.length; i++){
-            document.getElementById(getDayName(days[i])+"BlockDate").innerHTML = "Spring Break!!!";
+        for (let i = 0; i < days.length; i++) {
+            document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = "Spring Break!!!";
             daysLabel[i] = "Spring Break!!";
-            }
+        }
     } //then check if use date is in first trimester
-    else if (compareDates(mondayUseDate, tri1StartDate) >= 0 && compareDates(mondayUseDate, tri1EndDate) <= 0)  {
+    else if (compareDates(mondayUseDate, tri1StartDate) >= 0 && compareDates(mondayUseDate, tri1EndDate) <= 0) {
         //first find mondayBlock 
         console.log("This is in first Tri")
         var daysSinceStart = Math.floor(compareDates(mondayUseDate, tri1StartDate)); //this finds the total number of days since the start of the trimester (including weekends & daysoff)
@@ -145,7 +215,7 @@ function generateIndexPage() {
                 }
                 else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) { //checks to see if any days off occured before the desired date
                     schoolDaysSinceStart--; //if so subtract one from the number of school days since the start of the trimester
-                    numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri1StartDateBlock) % 8 ); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
+                    numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri1StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
                     daysLabel[i] = numericDayBlock;
                 }
@@ -179,7 +249,7 @@ function generateIndexPage() {
             }
         }
     }// then check trimester 3 (after tri3 end date)
-    else if (compareDates(mondayUseDate, tri3StartDate) >= 0 && compareDates(mondayUseDate, tri3EndDate) <= 0)  {
+    else if (compareDates(mondayUseDate, tri3StartDate) >= 0 && compareDates(mondayUseDate, tri3EndDate) <= 0) {
         //first find mondayBlock 
         console.log("This is in second Tri")
         var daysSinceStart = compareDates(mondayUseDate, tri3StartDate);
@@ -199,7 +269,7 @@ function generateIndexPage() {
                 }
                 else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) {
                     if (compareDates(allDatesOff[j], tri3StartDate) >= 0) { schoolDaysSinceStart-- };
-                    numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri3StartDateBlock) % 8 ); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
+                    numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri3StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
                     daysLabel[i] = numericDayBlock;
                 }
@@ -210,59 +280,165 @@ function generateIndexPage() {
     console.log(daysLabel);
     console.log(userLoggedIn);
 
-    if(userLoggedIn !== "true"){
+    if (userLoggedIn !== "true") {
         console.log("not logged in");
         allClassesArray = generateDefaultPage(daysLabel);
         console.log(generateDefaultPage(daysLabel));
-        document.getElementById("mon1stClass").innerHTML = allClassesArray[0][0];
-        document.getElementById("mon2ndClass").innerHTML = allClassesArray[0][1];
-        document.getElementById("monTop3rdClass").innerHTML = allClassesArray[0][2];
-        document.getElementById("mon4thClass").innerHTML = allClassesArray[0][3];
 
-        document.getElementById("tue1stClass").innerHTML = allClassesArray[1][0];
-        document.getElementById("tue2ndClass").innerHTML = allClassesArray[1][1];
-        document.getElementById("tueTop3rdClass").innerHTML = allClassesArray[1][2];
-        document.getElementById("tue4thClass").innerHTML = allClassesArray[1][3];
+        console.log("days array:" + days)
 
-        
-        document.getElementById("wed1stClass").innerHTML = allClassesArray[2][0];
-        document.getElementById("wed2ndClass").innerHTML = allClassesArray[2][1];
-        document.getElementById("wedTop3rdClass").innerHTML = allClassesArray[2][2];
-        document.getElementById("wed4thClass").innerHTML = allClassesArray[2][3];
-        
-        document.getElementById("thur1stClass").innerHTML = allClassesArray[3][0];
-        document.getElementById("thur2ndClass").innerHTML = allClassesArray[3][1];
-        document.getElementById("thurTop3rdClass").innerHTML = allClassesArray[3][2];
-        document.getElementById("thur4thClass").innerHTML = allClassesArray[3][3];
+        for (let i = 0; i < days.length; i++) {
+            console.log("days [i] " + days[i])
+            document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
+            document.getElementById(getDayName(days[i]) + "2ndClass").innerHTML = allClassesArray[i][1];
+            document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = allClassesArray[i][2];
+            document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "C Lunch";
+            document.getElementById(getDayName(days[i]) + "4thClass").innerHTML = allClassesArray[i][3];
 
-        document.getElementById("fri1stClass").innerHTML = allClassesArray[4][0];
-        document.getElementById("fri2ndClass").innerHTML = allClassesArray[4][1];
-        document.getElementById("friTop3rdClass").innerHTML = allClassesArray[4][2];
-        document.getElementById("fri4thClass").innerHTML = allClassesArray[4][3];
+            document.getElementById(getDayName(days[i]) + "1stTime").innerHTML = "8:30-9:50";
+            if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = "10:10-11:30";
+                document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = "11:35-12:55";
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = "12:55-1:35";
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = "1:40-3:00";
+            } else {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = "10:30-11:55";
+                document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = "11:55-1:15";
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = "1:15-1:55";
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = "2:00-3:20";
+            }
+        }
 
-        document.getElementById("mon1stTime").innerHTML = "8:30-9:50";
-        document.getElementById("tue1stTime").innerHTML = "8:30-9:50";
-        document.getElementById("wed1stTime").innerHTML = "8:30-9:50";
-        document.getElementById("thur1stTime").innerHTML = "8:30-9:50";
-        document.getElementById("fri1stTime").innerHTML = "8:30-9:50";
-
-        document.getElementById("mon2ndTime").innerHTML = "10:30-11:50";
-        document.getElementById("wed2ndTime").innerHTML = "10:30-11:50";
-        document.getElementById("thur2ndTime").innerHTML = "10:30-11:50";
-        document.getElementById("tue2ndTime").innerHTML = "10:10-11:30";
-        document.getElementById("fri2ndTime").innerHTML = "10:10-11:30";
-        
-        document.getElementById("mon4thTime").innerHTML = "2:00-3:20";
-        document.getElementById("wed4thTime").innerHTML = "2:00-3:20";
-        document.getElementById("thur4thTime").innerHTML = "2:00-3:20";
-        document.getElementById("tue4thTime").innerHTML = "1:40-3:00";
-        document.getElementById("fri4thTime").innerHTML = "1:40-3:00";
+        document.getElementById("monTopLine").style.borderColor = "blue !important";
 
 
-    } else{
-        console.log("logged in");
+    } else if (isHS === "false") {
+        allClassesArray = generateUserPage(daysLabel);
+
+        for (let i = 0; i < days.length; i++) {
+            //console.log("days [i] " + days[i])
+            document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
+            document.getElementById(getDayName(days[i]) + "2ndClass").innerHTML = allClassesArray[i][1];
+            document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = "A Lunch";
+            document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = allClassesArray[i][2];
+            document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "Recess";
+            document.getElementById(getDayName(days[i]) + "4thClass").innerHTML = allClassesArray[i][3];
+
+            document.getElementById(getDayName(days[i]) + "1stTime").innerHTML = firstClassTime;
+            if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = tf2ndClassTime;
+                document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfLunch;
+                document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = tf3rdClassTime;
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = tfRecess;
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = tf4thClassTime;
+            } else {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = mwth2ndClassTime;
+                document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthLunch;
+                document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwth3rdClassTime;
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = mwth4thClassTime;
+            }
+        }
+
+    } else {
+        console.log(daysLabel);
+        allClassesArray = generateUserPage(daysLabel);
+        let thirdBlockInfo = generateHSUser3rdBlock(daysLabel);
+        let firstBlockInfo = generateHSUser1stBlock(daysLabel);
+        let fourthBlockInfo = generateHSUser4thBlock(daysLabel);
+        console.log(thirdBlockInfo);
+        for (let i = 0; i < days.length; i++) {
+            //console.log("days [i] " + days[i])
+            document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
+            document.getElementById(getDayName(days[i]) + "2ndClass").innerHTML = allClassesArray[i][1];
+            // document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = "A Lunch";
+            // document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = allClassesArray[i][2];
+            // document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "Recess";
+            document.getElementById(getDayName(days[i]) + "4thClass").innerHTML = allClassesArray[i][3];
+
+            document.getElementById(getDayName(days[i]) + "1stTime").innerHTML = firstClassTime;
+            if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = tf2ndClassTime;
+                // document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfLunch;
+                // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = tf3rdClassTime;
+                // document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = tfRecess;
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = tf4thClassTime;
+            } else {
+                document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = mwth2ndClassTime;
+                // document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthLunch;
+                // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwth3rdClassTime;
+                // document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;
+                document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = mwth4thClassTime;
+            }
+
+            if (thirdBlockInfo[i] === 1) {
+                document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = "A Lunch";
+                document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = allClassesArray[i][2];
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "";
+
+                if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfTop3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = tfMiddleBottom3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = "";
+                } else {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthTop3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwthMiddleBottom3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = "";
+                }
+            } else if (thirdBlockInfo[i] === 2) {
+                document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = allClassesArray[i][2];
+                document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = "B Lunch";
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = allClassesArray[i][2];
+
+                if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfTop3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = tfMiddle3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = tfBottom3rdClassTime;
+                } else {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthTop3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwthMiddle3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthBottom3rdClassTime;
+                }
+            } else {
+                document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = allClassesArray[i][2];
+                // document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = "";
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "C Lunch";
+
+                if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfTopMiddle3rdClassTime;
+                    // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = "";
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = tfBottom3rdClassTime;
+                } else {
+                    document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthTopMiddle3rdClassTime;
+                    // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwthMiddle3rdClassTime;
+                    document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthBottom3rdClassTime;
+                }
+            }
+
+            console.log(clientHLs);
+            console.log(firstBlockInfo);
+            console.log("4th Block: " + fourthBlockInfo);
+
+            if (firstBlockInfo[i] === true) {
+                console.log(getDayName(days[i]));
+                document.getElementById(getDayName(days[i]) + "MorningHL").innerHTML = (allClassesArray[i][0] + " HL Extension");
+                document.getElementById(getDayName(days[i]) + "MorningHLTime").innerHTML = morningExtension;
+            } else console.log("Not true");
+
+            if (fourthBlockInfo[i] === true) {
+                console.log(fourthBlockInfo[i] === "true");
+                if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
+                    document.getElementById(getDayName(days[i]) + "AfternoonHL").innerHTML = allClassesArray[i][3] + " HL Extension";
+                    document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = tfAfternoonExtension;
+                } else {
+                    document.getElementById(getDayName(days[i]) + "AfternoonHL").innerHTML = allClassesArray[i][3] + " HL Extension";
+                document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = mwthAfternoonExtension;
+                }
+            } 
+
+        }
+
     }
-
 
 
 
@@ -361,28 +537,10 @@ function getDayBlock(number) {
     else if (number === 7) return "Day G";
 }
 
-function generateDefaultPage(dayLabels){
-var classes = [];
-for (let i=0; i<dayLabels.length; i++)
-{
-    if (dayLabels[i] === 0 ) classes[i] = ["F Block", "G Block", "H Block", "E Block"];
-    else if (dayLabels[i] === 1) classes[i] = ["A Block", "B Block", "C Block", "D Block"];
-    else if (dayLabels[i] === 2) classes[i] = ["E Block", "F Block", "G Block", "H Block"];
-    else if (dayLabels[i] === 3) classes[i] = ["D Block", "A Block", "B Block", "C Block"];
-    else if (dayLabels[i] === 4) classes[i] = ["H Block", "E Block", "F Block", "G Block"];
-    else if (dayLabels[i] === 5) classes[i] = ["C Block", "D Block", "A Block", "B Block"];
-    else if (dayLabels[i] === 6) classes[i] = ["G Block", "H Block", "E Block", "F Block"];
-    else if (dayLabels[i] === 7) classes[i] = ["B Block", "C Block", "D Block", "A Block"];
-    else classes[i] = [[dayLabels[i]], [dayLabels[i]], [dayLabels[i]], [dayLabels[i]]];
-}
-return classes;    
-}
-
-function generateUserPage(dayLabels){
+function generateDefaultPage(dayLabels) {
     var classes = [];
-    for (let i=0; i<dayLabels.length; i++)
-    {
-        if (dayLabels[i] === 0 ) classes[i] = ["F Block", "G Block", "H Block", "E Block"];
+    for (let i = 0; i < dayLabels.length; i++) {
+        if (dayLabels[i] === 0) classes[i] = ["F Block", "G Block", "H Block", "E Block"];
         else if (dayLabels[i] === 1) classes[i] = ["A Block", "B Block", "C Block", "D Block"];
         else if (dayLabels[i] === 2) classes[i] = ["E Block", "F Block", "G Block", "H Block"];
         else if (dayLabels[i] === 3) classes[i] = ["D Block", "A Block", "B Block", "C Block"];
@@ -392,5 +550,70 @@ function generateUserPage(dayLabels){
         else if (dayLabels[i] === 7) classes[i] = ["B Block", "C Block", "D Block", "A Block"];
         else classes[i] = [[dayLabels[i]], [dayLabels[i]], [dayLabels[i]], [dayLabels[i]]];
     }
-    return classes;    
+    return classes;
+}
+
+function generateUserPage(dayLabels) {
+    var classes = [];
+    for (let i = 0; i < dayLabels.length; i++) {
+        if (dayLabels[i] === 0) classes[i] = [clientClasses[5], clientClasses[6], clientClasses[7], clientClasses[4]];
+        else if (dayLabels[i] === 1) classes[i] = [clientClasses[0], clientClasses[1], clientClasses[2], clientClasses[3]];
+        else if (dayLabels[i] === 2) classes[i] = [clientClasses[4], clientClasses[5], clientClasses[6], clientClasses[7]];
+        else if (dayLabels[i] === 3) classes[i] = [clientClasses[3], clientClasses[0], clientClasses[1], clientClasses[2]];
+        else if (dayLabels[i] === 4) classes[i] = [clientClasses[7], clientClasses[4], clientClasses[5], clientClasses[6]];
+        else if (dayLabels[i] === 5) classes[i] = [clientClasses[2], clientClasses[3], clientClasses[0], clientClasses[1]];
+        else if (dayLabels[i] === 6) classes[i] = [clientClasses[6], clientClasses[7], clientClasses[4], clientClasses[5]];
+        else if (dayLabels[i] === 7) classes[i] = [clientClasses[1], clientClasses[2], clientClasses[3], clientClasses[0]];
+        else classes[i] = [[dayLabels[i]], [dayLabels[i]], [dayLabels[i]], [dayLabels[i]]];
     }
+    return classes;
+}
+
+
+function generateHSUser3rdBlock(dayLabels) {
+    var thirdBlockInfo = [];
+    for (let i = 0; i < dayLabels.length; i++) {
+        if (dayLabels[i] === 0) thirdBlockInfo[i] = +clientLunches[7];
+        else if (dayLabels[i] === 1) thirdBlockInfo[i] = +clientLunches[2];
+        else if (dayLabels[i] === 2) thirdBlockInfo[i] = +clientLunches[6];
+        else if (dayLabels[i] === 3) thirdBlockInfo[i] = +clientLunches[1];
+        else if (dayLabels[i] === 4) thirdBlockInfo[i] = +clientLunches[5];
+        else if (dayLabels[i] === 5) thirdBlockInfo[i] = +clientLunches[0];
+        else if (dayLabels[i] === 6) thirdBlockInfo[i] = +clientLunches[4];
+        else if (dayLabels[i] === 7) thirdBlockInfo[i] = +clientLunches[3];
+        else thirdBlockInfo[i] = dayLabels[i];
+    }
+    return thirdBlockInfo;
+}
+
+function generateHSUser1stBlock(dayLabels) {
+    var firstBlockInfo = [];
+    for (let i = 0; i < dayLabels.length; i++) {
+        if (dayLabels[i] === 0) firstBlockInfo[i] = (clientHLs[5]);
+        else if (dayLabels[i] === 1) firstBlockInfo[i] = (clientHLs[0]);
+        else if (dayLabels[i] === 2) firstBlockInfo[i] = (clientHLs[4]);
+        else if (dayLabels[i] === 3) firstBlockInfo[i] = (clientHLs[3]);
+        else if (dayLabels[i] === 4) firstBlockInfo[i] = (clientHLs[7]);
+        else if (dayLabels[i] === 5) firstBlockInfo[i] = (clientHLs[2]);
+        else if (dayLabels[i] === 6) firstBlockInfo[i] = (clientHLs[6]);
+        else if (dayLabels[i] === 7) firstBlockInfo[i] = (clientHLs[1]);
+        else firstBlockInfo[i] = dayLabels[i];
+    }
+    return firstBlockInfo;
+}
+
+function generateHSUser4thBlock(dayLabels) {
+    var fourthBlockInfo = [];
+    for (let i = 0; i < dayLabels.length; i++) {
+        if (dayLabels[i] === 0) fourthBlockInfo[i] = (clientHLs[4]);
+        else if (dayLabels[i] === 1) fourthBlockInfo[i] = (clientHLs[3]);
+        else if (dayLabels[i] === 2) fourthBlockInfo[i] = (clientHLs[7]);
+        else if (dayLabels[i] === 3) fourthBlockInfo[i] = (clientHLs[2]);
+        else if (dayLabels[i] === 4) fourthBlockInfo[i] = (clientHLs[6]);
+        else if (dayLabels[i] === 5) fourthBlockInfo[i] = (clientHLs[1]);
+        else if (dayLabels[i] === 6) fourthBlockInfo[i] = (clientHLs[5]);
+        else if (dayLabels[i] === 7) fourthBlockInfo[i] = (clientHLs[0]);
+        else fourthBlockInfo[i] = dayLabels[i];
+    }
+    return fourthBlockInfo;
+}

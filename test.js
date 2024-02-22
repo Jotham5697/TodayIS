@@ -29,14 +29,14 @@ let y = "treees";
 
 console.log(hash(x)!==hash(y));
 
-let today = new Date("2024-02-19").getTime();
+let today = new Date("2024-02-19").getDay();
 
 let today1 = new Date("2024-02-19").getTime();
-console.log(today)
+console.log("today" + today)
 console.log(today1)
 
-let difference = (today-today1) / (1000*60*60*24)
+// let difference = (today-today1) / (1000*60*60*24)
 
-console.log(difference);
+// console.log(difference);
 
 console.log
