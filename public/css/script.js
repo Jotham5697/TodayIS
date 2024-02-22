@@ -1,10 +1,10 @@
 // const { get } = require("mongoose");
 
-//Just to temp see cookies 
-let classesCookie = decodeURIComponent(document.cookie);
-console.log("classes: " + getCookie("theclasses"));
-console.log("This is working from script.js");
-document.getElementById("output").innerHTML = classesCookie;
+// //Just to temp see cookies 
+// let classesCookie = decodeURIComponent(document.cookie);
+// console.log("classes: " + getCookie("theclasses"));
+// console.log("This is working from script.js");
+// document.getElementById("output").innerHTML = classesCookie;
 
 
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------
