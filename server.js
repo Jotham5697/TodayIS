@@ -135,7 +135,10 @@ function isHS(ishs) {
 }
 
 app.post("/signUp.html", async function (req, res) {
-  if (req.body.password === req.body.cpassword) {
+  if (req.body.password !== req.body.cpassword) (res.send(" <script> alert('Passwords Do Not Match'); window.location.href = '/signUp.html'</script>"));
+  else if (req.body.username === "" || req.body.password === "" || req.body.name === "" || req.body.class1 === "" || req.body.class2 === "" ||req.body.class3 === "" ||req.body.class4 === "" ||req.body.class5 === "" ||req.body.class6 === "" ||req.body.class7 === "" ||req.body.class8 === "" ) { 
+    res.send(" <script> alert('Make Sure All Required Fields Are Filled Out'); window.location.href = '/signUp.html'</script>")
+  }else {
 
     let newUser = new User({
       username: req.body.username,
@@ -161,9 +164,7 @@ app.post("/signUp.html", async function (req, res) {
     res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
     //res.write("<script>alert('User Successfully Created!')</script>");
 
-  } else {
-    res.send(" <script> alert('Passwords Do Not Match'); window.location.href = '/signUp.html'</script>");
-  }
+  } 
 })
 
 let classes = new Array(); //creates empty array for user's class info to be stored in

@@ -1,26 +1,26 @@
 // const { get } = require("mongoose");
 
 // //Just to temp see cookies 
-// let classesCookie = decodeURIComponent(document.cookie);
-// console.log("classes: " + getCookie("theclasses"));
-// console.log("This is working from script.js");
-// document.getElementById("output").innerHTML = classesCookie;
+let classesCookie = decodeURIComponent(document.cookie);
+console.log("classes: " + getCookie("theclasses"));
+console.log("This is working from script.js");
+document.getElementById("output").innerHTML = classesCookie;
 
 
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------
 let userLoggedIn = getCookie("loggedIn");
-console.log("logged in: " + userLoggedIn);
+//console.log("logged in: " + userLoggedIn);
 
 let allDatesOff = getCookie("allDatesOff");
 allDatesOff = JSON.parse(allDatesOff); //converts cookie data back into usable JS Objects
 for (let i = 0; i < allDatesOff.length; i++) {
     allDatesOff[i] = convertStringDateToJSDate(allDatesOff[i])
 };
-console.log(allDatesOff);
+// console.log(allDatesOff);
 
 let reasonsAllDatesOff = getCookie("reasonsAllDatesOff");
 reasonsAllDatesOff = JSON.parse(reasonsAllDatesOff);
-console.log("reasons " + reasonsAllDatesOff.length);
+// console.log("reasons " + reasonsAllDatesOff.length);
 
 //deletes any duplicate Days off (starts from the back and moves to the front of the array)
 for (let i = 0; i < allDatesOff.length; i++) {
@@ -28,7 +28,7 @@ for (let i = 0; i < allDatesOff.length; i++) {
         if (compareDates(allDatesOff[i], allDatesOff[j]) === 0) {
             allDatesOff.splice(j, 1);
             reasonsAllDatesOff.splice(j, 1);
-            console.log("found duplicate @ index" + j)
+            // console.log("found duplicate @ index" + j)
         }
     }
 }
@@ -66,11 +66,11 @@ if (userLoggedIn === "true") {
     var clientLunches = getCookie("clientLunch");
     clientLunches = JSON.parse(clientLunches);
 
-    console.log(isHS);
-    console.log(clientName);
-    console.log(clientClasses);
-    console.log(clientHLs);
-    console.log(clientLunches)
+    // console.log(isHS);
+    // console.log(clientName);
+    // console.log(clientClasses);
+    // console.log(clientHLs);
+    // console.log(clientLunches)
 
     if (isHS === "false") {
         var firstClassTime = "8:35-9:50";
@@ -139,7 +139,7 @@ function setUseDate() {
 function generateIndexPage() {
     //function Displays the useDate on the DatePicker defaults as todays date unless otherwise specified
     //function also creatse useDate variable for logic in rest of file
-    console.log("Initial String Use Date " + sessionStorage.getItem("stringUseDate"));
+    //console.log("Initial String Use Date " + sessionStorage.getItem("stringUseDate"));
     if (sessionStorage.getItem("stringUseDate") === null) { //if use date is not determined by user and put in session storage, default to today's date
         var formattedDate = convertJSDateToString(new Date()); //get current date using JS Date then convert to format for date input yyyy-mm-dd
         var useDate = convertStringDateToJSDate(convertJSDateToString(new Date())); //set the date used for later logic to todays date
@@ -175,8 +175,8 @@ function generateIndexPage() {
     let days = [mondayUseDate, tuesdayUseDate, wednesdayUseDate, thursdayUseDate, fridayUseDate];
 
     console.log("Monday Use Date: " + mondayUseDate.getTime());
-    console.log("Tri1End: " + tri1EndDate.getTime());
-    console.log("Tri2Start: " + tri2StartDate.getTime());
+    // console.log("Tri1End: " + tri1EndDate.getTime());
+    // console.log("Tri2Start: " + tri2StartDate.getTime());
 
     //setting each day Block Date---------------------------------------------------------------------
 
@@ -198,9 +198,10 @@ function generateIndexPage() {
     else if (compareDates(mondayUseDate, tri1StartDate) >= 0 && compareDates(mondayUseDate, tri1EndDate) <= 0) {
         //first find mondayBlock 
         console.log("This is in first Tri")
-        var daysSinceStart = Math.floor(compareDates(mondayUseDate, tri1StartDate)); //this finds the total number of days since the start of the trimester (including weekends & daysoff)
+        var daysSinceStart = Math.round(compareDates(mondayUseDate, tri1StartDate)); //this finds the total number of days since the start of the trimester (including weekends & daysoff)
         var weekendsSinceStart = (daysSinceStart / 7) * 2; //this finds the total number of Sats and Suns that have occured since the start of the trimester to be subtracted from total days from the start of the year
         var numericDayBlock; //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
+
 
         for (let i = 0; i < days.length; i++) { //to iterate through array of each day in currently displayed week 
             var dayOff = false //resets dayoff to false after a day off was found 
@@ -225,8 +226,12 @@ function generateIndexPage() {
     else if (compareDates(mondayUseDate, tri2StartDate) >= 0 && compareDates(mondayUseDate, tri2EndDate) <= 0) {
         //first find mondayBlock 
         console.log("This is in second Tri")
-        var daysSinceStart = compareDates(mondayUseDate, tri2StartDate);
+        var daysSinceStart = Math.round(compareDates(mondayUseDate, tri2StartDate));
         var weekendsSinceStart = (daysSinceStart / 7) * 2;
+
+        console.log("days since start of trimester:" +daysSinceStart);
+        console.log("weekends since start:" + weekendsSinceStart);
+
 
         for (let i = 0; i < days.length; i++) {
             console.log("This is in outer loop")
@@ -243,6 +248,7 @@ function generateIndexPage() {
                 else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) {
                     if (compareDates(allDatesOff[j], tri2StartDate) >= 0) { schoolDaysSinceStart-- }; //slightly differently then above, this checks if day off is specifically in the second trimester (to not consider days off from the first trimester)
                     numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri2StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
+                    console.log("numeric day block: " + numericDayBlock);
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
                     daysLabel[i] = numericDayBlock;
                 }
@@ -251,12 +257,12 @@ function generateIndexPage() {
     }// then check trimester 3 (after tri3 end date)
     else if (compareDates(mondayUseDate, tri3StartDate) >= 0 && compareDates(mondayUseDate, tri3EndDate) <= 0) {
         //first find mondayBlock 
-        console.log("This is in second Tri")
-        var daysSinceStart = compareDates(mondayUseDate, tri3StartDate);
+        // console.log("This is in second Tri")
+        var daysSinceStart = Math.round(compareDates(mondayUseDate, tri3StartDate));
         var weekendsSinceStart = (daysSinceStart / 7) * 2;
 
         for (let i = 0; i < days.length; i++) {
-            console.log("This is in outer loop")
+            // console.log("This is in outer loop")
             var dayOff = false;
             var schoolDaysSinceStart = daysSinceStart + i;
             //while (dayOff = false)
@@ -277,18 +283,18 @@ function generateIndexPage() {
         }
     }
 
-    console.log(daysLabel);
-    console.log(userLoggedIn);
+    // console.log(daysLabel);
+    // console.log(userLoggedIn);
 
     if (userLoggedIn !== "true") {
         console.log("not logged in");
         allClassesArray = generateDefaultPage(daysLabel);
-        console.log(generateDefaultPage(daysLabel));
+        // console.log(generateDefaultPage(daysLabel));
 
         console.log("days array:" + days)
 
         for (let i = 0; i < days.length; i++) {
-            console.log("days [i] " + days[i])
+            // console.log("days [i] " + days[i])
             document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
             document.getElementById(getDayName(days[i]) + "2ndClass").innerHTML = allClassesArray[i][1];
             document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = allClassesArray[i][2];
@@ -335,18 +341,18 @@ function generateIndexPage() {
                 document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = mwth2ndClassTime;
                 document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthLunch;
                 document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwth3rdClassTime;
-                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;cr
                 document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = mwth4thClassTime;
             }
         }
 
     } else {
-        console.log(daysLabel);
+        // console.log(daysLabel);
         allClassesArray = generateUserPage(daysLabel);
         let thirdBlockInfo = generateHSUser3rdBlock(daysLabel);
         let firstBlockInfo = generateHSUser1stBlock(daysLabel);
         let fourthBlockInfo = generateHSUser4thBlock(daysLabel);
-        console.log(thirdBlockInfo);
+        // console.log(thirdBlockInfo);
         for (let i = 0; i < days.length; i++) {
             //console.log("days [i] " + days[i])
             document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
@@ -415,18 +421,18 @@ function generateIndexPage() {
                 }
             }
 
-            console.log(clientHLs);
-            console.log(firstBlockInfo);
-            console.log("4th Block: " + fourthBlockInfo);
+            // console.log(clientHLs);
+            // console.log(firstBlockInfo);
+            // console.log("4th Block: " + fourthBlockInfo);
 
             if (firstBlockInfo[i] === true) {
-                console.log(getDayName(days[i]));
+                // console.log(getDayName(days[i]));
                 document.getElementById(getDayName(days[i]) + "MorningHL").innerHTML = (allClassesArray[i][0] + " HL Extension");
                 document.getElementById(getDayName(days[i]) + "MorningHLTime").innerHTML = morningExtension;
             } else console.log("Not true");
 
             if (fourthBlockInfo[i] === true) {
-                console.log(fourthBlockInfo[i] === "true");
+                // console.log(fourthBlockInfo[i] === "true");
                 if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
                     document.getElementById(getDayName(days[i]) + "AfternoonHL").innerHTML = allClassesArray[i][3] + " HL Extension";
                     document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = tfAfternoonExtension;
@@ -481,7 +487,7 @@ function replaceCookie(cookieName, newValue, expirationDays) {
     if (getCookie(cookieName)) {
         // Set the new value for the cookie
         setCookie(cookieName, newValue, expirationDays);
-        console.log("Cookie " + cookieName + " has been replaced with value: " + newValue);
+        // console.log("Cookie " + cookieName + " has been replaced with value: " + newValue);
     } else {
         console.log("Cookie " + cookieName + " does not exist.");
     }
