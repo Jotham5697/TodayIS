@@ -1,3 +1,5 @@
+// const { get } = require("mongoose");
+
 console.log("Tri1StartDate: " + getCookie("Tri1StartDate"))
 
 document.getElementById('trimester1StartingDate').value = getCookie("Tri1StartDate");
@@ -13,6 +15,21 @@ document.getElementById('trimester3StartingDate').value = getCookie("Tri3StartDa
 document.getElementById('trimester3EndingDate').value = getCookie("Tri3EndDate");
 document.getElementById('trimester3StartingDayBlock').value = getCookie("Tri3StartDateBlock");
 
+
+arrayDaysOff = JSON.parse(getCookie("dateOffAndReason")); 
+
+console.log(arrayDaysOff);
+
+var select = document.getElementById("selectDateOffToDelte");
+
+
+for(var i = 0; i < arrayDaysOff.length; i++) {
+    var opt = (arrayDaysOff[i][0] + ": "  + arrayDaysOff[i][1]);
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+}
 
 
 // Function to set a cookie

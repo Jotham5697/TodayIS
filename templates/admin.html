@@ -56,7 +56,7 @@
 
     <div class="container text-center">
         <div class="row align-items-left">
-            <div class="col-4 white">
+            <div class="col-2 white">
                 <!-- Left of Add Day Off -->
             </div>
             <div class="col-4 white col align-self-center">
@@ -75,6 +75,15 @@
                 <br>
             </div>
             <div class="col-4 white">
+                <form class="container" method="post" action="/deleteDayOff">
+                    
+                    <select class="white myinput" id="selectDateOffToDelte">
+                        <option>Select a Day Off To Remove </option>
+                    </select>
+
+                </form>
+            </div>
+            <div class="col-2 white">
                 <!-- Right of add day off -->
             </div>
 
@@ -148,7 +157,7 @@
                     <br>
                     <label for="trimester3StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
                     <select class="form-select form-select-sm white myinput" aria-label="Small select example"
-                        name="trimester3StartingDayBlock" id="trimester1StartingDayBlock">
+                        name="trimester3StartingDayBlock" id="trimester3StartingDayBlock">
                         <option value=1>Day A</option>
                         <option value=2>Day B</option>
                         <option value=3>Day C</option>

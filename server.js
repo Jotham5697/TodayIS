@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 const { createHash } = require('node:crypto');
+const { userInfo } = require("node:os");
 
 function hash(string) {
   return createHash('sha256').update(string).digest('hex');
@@ -72,30 +73,31 @@ app.get('/signUp.html', function (req, res) {
   console.log("Succesfully entered Signup Page");
 });
 
-let datesoff = new Array(); //creates empty array for user's class info to be stored in
-let reasons = new Array(); //creates empty array for user's class info to be stored in
 
 
+
+let dateOffAndReason = new Array(); //creates empty array to hold day off info (dateoff, reason)
 
 app.get('/', async function (req, res) {
   let hasData = req.cookies.hasNeccesaryData;
   console.log("hasNeccesaryData: " + hasData)
   if (hasData !== "true") {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
-    //console.log(allDaysOff);
+
     allDaysOff.forEach((dayoff) => {
-      datesoff.push(dayoff.dateOff);
-      reasons.push(dayoff.reason);
+      let info = [dayoff.dateOff, dayoff.reason];
+      dateOffAndReason.push(info);
+
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("allDatesOff", JSON.stringify(datesoff), { overwrite: true });
-    res.cookie("reasonsAllDatesOff", JSON.stringify(reasons));
+    res.cookie("dateOffAndReason", JSON.stringify(dateOffAndReason));
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
       res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
       res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
       res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
     })
+    console.log("Request sent to server for day off info");
   }
   res.sendFile(__dirname + '/templates/index.html');
   console.log("Succesfully entered Home Page");
@@ -136,9 +138,9 @@ function isHS(ishs) {
 
 app.post("/signUp.html", async function (req, res) {
   if (req.body.password !== req.body.cpassword) (res.send(" <script> alert('Passwords Do Not Match'); window.location.href = '/signUp.html'</script>"));
-  else if (req.body.username === "" || req.body.password === "" || req.body.name === "" || req.body.class1 === "" || req.body.class2 === "" ||req.body.class3 === "" ||req.body.class4 === "" ||req.body.class5 === "" ||req.body.class6 === "" ||req.body.class7 === "" ||req.body.class8 === "" ) { 
+  else if (req.body.username === "" || req.body.password === "" || req.body.name === "" || req.body.class1 === "" || req.body.class2 === "" || req.body.class3 === "" || req.body.class4 === "" || req.body.class5 === "" || req.body.class6 === "" || req.body.class7 === "" || req.body.class8 === "") {
     res.send(" <script> alert('Make Sure All Required Fields Are Filled Out'); window.location.href = '/signUp.html'</script>")
-  }else {
+  } else {
 
     let newUser = new User({
       username: req.body.username,
@@ -152,19 +154,19 @@ app.post("/signUp.html", async function (req, res) {
     });
     console.log("User Successfully added!");
     newUser.save();
-    
+    res.cookie("username", JSON.stringify(req.body.username));
     res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)));
     res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))));
     res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
     res.cookie("clientName", JSON.stringify(req.body.name));
     res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
     res.cookie("loggedIn", "true");
-    
+
 
     res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
     //res.write("<script>alert('User Successfully Created!')</script>");
 
-  } 
+  }
 })
 
 let classes = new Array(); //creates empty array for user's class info to be stored in
@@ -180,6 +182,7 @@ app.post("/login.html", async function (req, res) {
     res.send(" <script> alert('Incorrect Password, Try Again'); window.location.href = '/login.html'</script>");
   }
   else {
+    res.cookie("username", JSON.stringify(userUsing.username));
     res.cookie("clientClasses", JSON.stringify(userUsing.classes));
     res.cookie("clientHls", JSON.stringify(userUsing.isHL));
     res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
@@ -282,6 +285,24 @@ app.post("/updateTrimesterInfo", async function (req, res) {
 
 });
 
+app.post("/updateUser", async function (req, res) {
+  console.log(req.cookies.username);
+  let username = (JSON.parse(req.cookies.username));
+  //username = username.slice(0, -1);
+  let newName = req.body.name;
+  let newIsHS = isHS(req.body.isHS);
+  let newClasses = Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8);
+  let newHLs = Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8));
+  let newLunches = Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8);
+
+  let update = await User.findOneAndUpdate({ username: username }, { $set: { name: newName, isHS: newIsHS, classes: newClasses, isHL: newHLs, lunches: newLunches } });
+  res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)));
+  res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))));
+  res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
+  res.cookie("clientName", JSON.stringify(req.body.name));
+  res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
+  res.sendFile(__dirname + '/templates/profile.html');
+})
 
 
 

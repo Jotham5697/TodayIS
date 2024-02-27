@@ -1,5 +1,7 @@
 // const { get } = require("mongoose");
 
+// const { get } = require("mongoose");
+
 // //Just to temp see cookies 
 let classesCookie = decodeURIComponent(document.cookie);
 console.log("classes: " + getCookie("theclasses"));
@@ -11,27 +13,33 @@ document.getElementById("output").innerHTML = classesCookie;
 let userLoggedIn = getCookie("loggedIn");
 //console.log("logged in: " + userLoggedIn);
 
-let allDatesOff = getCookie("allDatesOff");
-allDatesOff = JSON.parse(allDatesOff); //converts cookie data back into usable JS Objects
-for (let i = 0; i < allDatesOff.length; i++) {
-    allDatesOff[i] = convertStringDateToJSDate(allDatesOff[i])
-};
-// console.log(allDatesOff);
 
-let reasonsAllDatesOff = getCookie("reasonsAllDatesOff");
-reasonsAllDatesOff = JSON.parse(reasonsAllDatesOff);
-// console.log("reasons " + reasonsAllDatesOff.length);
+let datesOffAndReasons = getCookie("dateOffAndReason");
+datesOffAndReasons = JSON.parse(datesOffAndReasons);
+
+for (let i = 0; i < datesOffAndReasons.length; i++) {
+    datesOffAndReasons[i][0] = convertStringDateToJSDate(datesOffAndReasons[i][0])
+};
+
+
+
+console.log(datesOffAndReasons);
+console.log(datesOffAndReasons.length);
+
 
 //deletes any duplicate Days off (starts from the back and moves to the front of the array)
-for (let i = 0; i < allDatesOff.length; i++) {
-    for (let j = allDatesOff.length - 1; j > i; j--) {
-        if (compareDates(allDatesOff[i], allDatesOff[j]) === 0) {
-            allDatesOff.splice(j, 1);
-            reasonsAllDatesOff.splice(j, 1);
+
+for (let i = 0; i < datesOffAndReasons.length; i++) {
+    for (let j = datesOffAndReasons.length - 1; j > i; j--) {
+        if (compareDates(datesOffAndReasons[i][0], datesOffAndReasons[j][0]) === 0) {
+            datesOffAndReasons.splice(j, 1);
+            datesOffAndReasons.splice(j, 1);
             // console.log("found duplicate @ index" + j)
         }
     }
 }
+
+console.log("updated double array length" + datesOffAndReasons.length);
 
 
 let tri1StartDate = convertStringDateToJSDate(getCookie("Tri1StartDate"));
@@ -206,15 +214,15 @@ function generateIndexPage() {
         for (let i = 0; i < days.length; i++) { //to iterate through array of each day in currently displayed week 
             var dayOff = false //resets dayoff to false after a day off was found 
             var schoolDaysSinceStart = daysSinceStart + i; //since monday is i = 0, each successive day is one day later and one index later
-            for (j = 0; j < allDatesOff.length; j++) { //to iterate through array of days off
+            for (j = 0; j < datesOffAndReasons.length; j++) { //to iterate through array of days off
 
-                if (compareDates(days[i], allDatesOff[j]) === 0 && dayOff === false) { //if current date is equal to a day off 
+                if (compareDates(days[i], datesOffAndReasons[j][0]) === 0 && dayOff === false) { //if current date is equal to a day off 
                     //console.log(getDayName(days[i])); //get the day name of that date (e.i monday, tuesday...)
-                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = reasonsAllDatesOff[j]; //display the reason for day off (since index of day off in day off array coincides with index or the reason for that day off)
+                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = datesOffAndReasons[j][1]; //display the reason for day off (since index of day off in day off array coincides with index or the reason for that day off)
                     dayOff = true; //set dayOff to true to not keep iterating through days off for that specific date
-                    daysLabel[i] = reasonsAllDatesOff[j]; //
+                    daysLabel[i] = datesOffAndReasons[j][1]; //
                 }
-                else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) { //checks to see if any days off occured before the desired date
+                else if (compareDates(days[i], datesOffAndReasons[j][0]) > 0 && dayOff === false) { //checks to see if any days off occured before the desired date
                     schoolDaysSinceStart--; //if so subtract one from the number of school days since the start of the trimester
                     numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri1StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
@@ -238,15 +246,15 @@ function generateIndexPage() {
             var dayOff = false;
             var schoolDaysSinceStart = daysSinceStart + i;
             //while (dayOff = false)
-            for (j = 0; j < allDatesOff.length; j++) {
+            for (j = 0; j < datesOffAndReasons.length; j++) {
 
-                if (compareDates(days[i], allDatesOff[j]) === 0 && dayOff === false) {
-                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = reasonsAllDatesOff[j];
+                if (compareDates(days[i], datesOffAndReasons[j][0]) === 0 && dayOff === false) {
+                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = datesOffAndReasons[j][1];
                     dayOff = true;
-                    daysLabel[i] = reasonsAllDatesOff[j];
+                    daysLabel[i] = datesOffAndReasons[j][1];
                 }
-                else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) {
-                    if (compareDates(allDatesOff[j], tri2StartDate) >= 0) { schoolDaysSinceStart-- }; //slightly differently then above, this checks if day off is specifically in the second trimester (to not consider days off from the first trimester)
+                else if (compareDates(days[i], datesOffAndReasons[j][0]) > 0 && dayOff === false) {
+                    if (compareDates(datesOffAndReasons[j][0], tri2StartDate) >= 0) { schoolDaysSinceStart-- }; //slightly differently then above, this checks if day off is specifically in the second trimester (to not consider days off from the first trimester)
                     numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri2StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
                     console.log("numeric day block: " + numericDayBlock);
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
@@ -266,15 +274,15 @@ function generateIndexPage() {
             var dayOff = false;
             var schoolDaysSinceStart = daysSinceStart + i;
             //while (dayOff = false)
-            for (j = 0; j < allDatesOff.length; j++) {
+            for (j = 0; j < datesOffAndReasons.length; j++) {
 
-                if (compareDates(days[i], allDatesOff[j]) === 0 && dayOff === false) {
-                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = reasonsAllDatesOff[j];
+                if (compareDates(days[i], datesOffAndReasons[j][0]) === 0 && dayOff === false) {
+                    document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = datesOffAndReasons[j][1];
                     dayOff = true;
-                    daysLabel[i] = reasonsAllDatesOff[j];
+                    daysLabel[i] = datesOffAndReasons[j][1];
                 }
-                else if (compareDates(days[i], allDatesOff[j]) > 0 && dayOff === false) {
-                    if (compareDates(allDatesOff[j], tri3StartDate) >= 0) { schoolDaysSinceStart-- };
+                else if (compareDates(days[i], datesOffAndReasons[j][0]) > 0 && dayOff === false) {
+                    if (compareDates(datesOffAndReasons[j][0], tri3StartDate) >= 0) { schoolDaysSinceStart-- };
                     numericDayBlock = ((schoolDaysSinceStart - weekendsSinceStart + tri3StartDateBlock) % 8); //keep track of the numeric day block (i.e Day H = 0, Day A = 1, Day B = 2, Day C = 3... )
                     document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = getDayBlock(numericDayBlock);
                     daysLabel[i] = numericDayBlock;

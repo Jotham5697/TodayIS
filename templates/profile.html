@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  
+
 
 
 
@@ -53,13 +53,254 @@
     </div>
   </nav>
 
-  <h2 class="white">___Page Still Under Construction___</h2>
+  <div class="container text-center">
+    <div class="row">
+      <!-- <div class="col">
+            Left
+        </div> -->
+      <div class="col-12">
+
+        <h1 class="white">Update User Information:</h1>
+        <br>
+
+        <form class="container" method="post" action="/updateUser">
+          <div class="form-group">
+            <h2 class="white">Name: </h2>
+            <input class="form-control myinput white" id="name" name="name">
+          </div>
+          <div>
+            <label for="isHS" class="white">Are you in High School or Middle School?</label>
+            <select class="form-select form-select-sm myinput white" aria-label="Small select example" id="isHS" name="isHS">
+              <option value=1> High School</option>
+              <option value="2">Middle School</option>
+            </select>
+          </div>
+
+
+          <br>
+
+          <div class="container text-center">
+            <div class="row">
+              <div class="col-6 border-right border-dark">
+                <div>
+                  <h4>
+                    First Class:
+                  </h4>
+                </div>
+                <div class="form-group white">
+                  <p>What is your first class? </p>
+                  <input class="form-control myinput white" name="class1" id="class1" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl1" name="hl1" value="HL" class="myinput white checkbox-color">
+                  <label for="hl1" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch1" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch1" id="lunch1">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+
+
+                <br>
+
+                <div>
+                  <h4>
+                    Second Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your second class? </p>
+                  <input class="form-control myinput white" name="class2" id="class2" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl2" name="hl2" value="HL">
+                  <label for="hl2" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch2" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch2" id="lunch2">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+
+
+                <br>
+
+                <div>
+                  <h4>
+                    Third Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your third class? </p>
+                  <input class="form-control myinput white" id="class3" name="class3" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl3" name="hl3" value="HL">
+                  <label for="hl3" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch3" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch3" id="lunch3">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+
+                <br>
+
+                <div>
+                  <h4>
+                    Fourth Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your fourth class? </p>
+                  <input class="form-control myinput white" name="class4" id="class4" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl4" name="hl4" value="HL">
+                  <label for="hl4" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch4" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch4" id="lunch4">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+                <br>
+              </div>
+              <div class="col-6">
+                <div>
+                  <h4>
+                    Fifth Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your fifth class? </p>
+                  <input class="form-control myinput white" name="class5" id="class5" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl5" name="hl5" value="HL">
+                  <label for="hl5" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch5" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch5" id="lunch5">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+                <br>
+
+                <div>
+                  <h4>
+                    Sixth Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your sixth class? </p>
+                  <input class="form-control myinput white" name="class6" id="class6" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl6" name="hl6" value="HL">
+                  <label for="hl6" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch6" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch6" id="lunch6">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+                <br>
+
+
+                <div>
+                  <h4>
+                    Seventh Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your seventh class? </p>
+                  <input class="form-control myinput white" name="class7" id ="class7" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl7" name="hl7" value="HL">
+                  <label for="hl7" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch7" class="white">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm myinput white" aria-label="Small select example"
+                    name="lunch7" id="lunch7">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+                <br>
+
+
+                <div>
+                  <h4>
+                    Eighth Class:
+                  </h4>
+                </div>
+                <div class="form-group">
+                  <p>What is your eighth class? </p>
+                  <input class="form-control myinput white" name="class8" id="class8" size="5">
+                </div>
+                <div>
+                  <input type="checkbox" id="hl8" name="hl8" value="HL">
+                  <label for="hl8" class="white">Do you have HL extensions for this class?</label>
+                </div>
+                <div>
+                  <label for="lunch8" class="white left-a">What lunch do you have during this class:</label>
+                  <select class="form-select form-select-sm left-a myinput white" aria-label="Small select example"
+                    name="lunch8" id="lunch8">
+                    <option selected value="1"> A Lunch</option>
+                    <option value="2">B Lunch</option>
+                    <option value="3">C Lunch</option>
+                  </select>
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+
+          <button class="myinput white btn-lg"> SignUp</button>
+        </form>
+        <br>
+        <br>
+      </div>
+      <!-- <div class="col">
+            Right
+        </div> -->
+    </div>
+  </div>
 
 
 
-  
 
-<script src="/script.js" type="text/javascript">  </script>
+
+  <script src="/profile.js" type="text/javascript">  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
