@@ -20,11 +20,11 @@ arrayDaysOff = JSON.parse(getCookie("dateOffAndReason"));
 
 console.log(arrayDaysOff);
 
-var select = document.getElementById("selectDateOffToDelte");
+var select = document.getElementById("selectDateOffToDelete");
 
 
 for(var i = 0; i < arrayDaysOff.length; i++) {
-    var opt = (arrayDaysOff[i][0] + ": "  + arrayDaysOff[i][1]);
+    var opt = (arrayDaysOff[i][0]);
     var el = document.createElement("option");
     el.textContent = opt;
     el.value = opt;

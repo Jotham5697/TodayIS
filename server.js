@@ -306,6 +306,37 @@ app.post("/updateUser", async function (req, res) {
 
 
 
+// /deleteDayOff/${dateOff}
+
+app.delete('/deleteDayOff/:dateOff', async (req, res) => {
+  // res.write("<confrim>'Are you sure you want to delete ' + dayOffToBeDeleted</confrim>")
+  const dayOffToBeDeleted = req.params.dateOff; //date to be deleted packages in url 
+  try {
+  
+    let deleting = await dayOff.deleteOne({ dateOff: dayOffToBeDeleted }); //deletes Day based on day off in URL 
+
+    //then updates day off info in cookies
+    const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
+
+    allDaysOff.forEach((dayoff) => {
+      let info = [dayoff.dateOff, dayoff.reason];
+      dateOffAndReason.push(info);
+
+    });
+    res.cookie("hasNeccesaryData", "true");
+    res.cookie("dateOffAndReason", JSON.stringify(dateOffAndReason));
+
+
+    res.send("Day Off deleted successfully");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+
+
 
 
 

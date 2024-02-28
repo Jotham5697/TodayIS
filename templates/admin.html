@@ -75,14 +75,56 @@
                 <br>
             </div>
             <div class="col-4 white">
-                <form class="container" method="post" action="/deleteDayOff">
-                    
-                    <select class="white myinput" id="selectDateOffToDelte">
+                <form class="container" method="delete" id="deleteDayOff" action="deleteDayOff">
+
+                    <select class="white myinput" id="selectDateOffToDelete">
                         <option>Select a Day Off To Remove </option>
                     </select>
-
+                    <button class="white myinput"> Delete Day Off</button>
                 </form>
             </div>
+
+            <script>
+                document.getElementById("deleteDayOff").addEventListener("submit", function (event) {
+                    event.preventDefault(); // Prevent the default form submission
+
+                    if (confirm("Are You Sure?") === true) {
+
+                        const dateOff = document.getElementById("selectDateOffToDelete").value;
+
+
+                        fetch(`/deleteDayOff/${dateOff}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    alert('User deleted successfully');
+                                } else {
+                                    alert('Failed to delete user in then');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Failed to delete user');
+                            });
+                    }
+                    // console.log("are you sure>");
+
+
+
+
+
+
+
+                });
+            </script>
+
+
+
+
             <div class="col-2 white">
                 <!-- Right of add day off -->
             </div>
@@ -91,13 +133,14 @@
                 <h4>Trimester 1 Information</h4>
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="1" />
-                    <label for="trimester1StartingDate"  class="white">Start Date (T1): </label>
+                    <label for="trimester1StartingDate" class="white">Start Date (T1): </label>
                     <input type="date" id="trimester1StartingDate" name="trimester1StartingDate" class="white myinput">
                     <br>
-                    <label for="trimester1EndingDate"  class="white">End Date (T1): </label>
+                    <label for="trimester1EndingDate" class="white">End Date (T1): </label>
                     <input type="date" id="trimester1EndingDate" name="trimester1EndingDate" class="white myinput">
                     <br>
-                    <label for="trimester1StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <label for="trimester1StartingDateBlock" class="white">What Block Day is the first day of the
+                        trimester?</label>
                     <select class="form-select form-select-sm white myinput" aria-label="Small select example"
                         name="trimester1StartingDayBlock" id="trimester1StartingDayBlock">
                         <option value=1>Day A</option>
@@ -112,7 +155,7 @@
                     <br>
                     <br>
                     <button class="white myinput"> Update Trimester 1 Information</button>
-                    
+
                 </form>
             </div>
 
@@ -120,13 +163,14 @@
                 <h4>Trimester 2 Information</h4>
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="2" />
-                    <label for="trimester2StartingDate"  class="white">Start Date (T2): </label>
+                    <label for="trimester2StartingDate" class="white">Start Date (T2): </label>
                     <input type="date" id="trimester2StartingDate" name="trimester2StartingDate" class="white myinput">
                     <br>
-                    <label for="trimester2EndingDate"  class="white">End Date (T2): </label>
+                    <label for="trimester2EndingDate" class="white">End Date (T2): </label>
                     <input type="date" id="trimester2EndingDate" name="trimester2EndingDate" class="white myinput">
                     <br>
-                    <label for="trimester2StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <label for="trimester2StartingDateBlock" class="white">What Block Day is the first day of the
+                        trimester?</label>
                     <select class="form-select form-select-sm white myinput" aria-label="Small select example"
                         name="trimester2StartingDayBlock" id="trimester2StartingDayBlock">
                         <option value=1>Day A</option>
@@ -141,7 +185,7 @@
                     <br>
                     <br>
                     <button class="white myinput"> Update Trimester 2 Information</button>
-                    
+
                 </form>
             </div>
 
@@ -149,13 +193,14 @@
                 <h4>Trimester 3 Information</h4>
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="3" />
-                    <label for="trimester3StartingDate"  class="white">Start Date (T3): </label>
+                    <label for="trimester3StartingDate" class="white">Start Date (T3): </label>
                     <input type="date" id="trimester3StartingDate" name="trimester3StartingDate" class="white myinput">
                     <br>
-                    <label for="trimester3EndingDate"  class="white">End Date (T3): </label>
+                    <label for="trimester3EndingDate" class="white">End Date (T3): </label>
                     <input type="date" id="trimester3EndingDate" name="trimester3EndingDate" class="white myinput">
                     <br>
-                    <label for="trimester3StartingDateBlock"  class="white">What Block Day is the first day of the trimester?</label>
+                    <label for="trimester3StartingDateBlock" class="white">What Block Day is the first day of the
+                        trimester?</label>
                     <select class="form-select form-select-sm white myinput" aria-label="Small select example"
                         name="trimester3StartingDayBlock" id="trimester3StartingDayBlock">
                         <option value=1>Day A</option>
@@ -170,7 +215,7 @@
                     <br>
                     <br>
                     <button class="white myinput"> Update Trimester 3 Information</button>
-                    
+
                 </form>
 
             </div>
