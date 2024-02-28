@@ -87,12 +87,8 @@
             <script>
                 document.getElementById("deleteDayOff").addEventListener("submit", function (event) {
                     event.preventDefault(); // Prevent the default form submission
-
                     if (confirm("Are You Sure?") === true) {
-
                         const dateOff = document.getElementById("selectDateOffToDelete").value;
-
-
                         fetch(`/deleteDayOff/${dateOff}`, {
                             method: 'DELETE',
                             headers: {
@@ -111,14 +107,6 @@
                                 alert('Failed to delete user');
                             });
                     }
-                    // console.log("are you sure>");
-
-
-
-
-
-
-
                 });
             </script>
 

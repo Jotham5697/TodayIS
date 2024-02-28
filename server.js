@@ -109,14 +109,42 @@ app.get('/login.html', function (req, res) {
 });
 
 app.get('/admin.html', function (req, res) {
-  res.sendFile(__dirname + '/templates/admin.html');
+  console.log(req.cookies.adminLoggedIn);
+  if (req.cookies.adminLoggedIn === "true"){
+    res.sendFile(__dirname + '/templates/admin.html')
+  }else {
+  res.sendFile(__dirname + '/templates/adminLogin.html');
   console.log("Succesfully entered Admin Page");
+  }
 });
 
 app.get('/profile.html', function (req, res) {
-  res.sendFile(__dirname + '/templates/profile.html');
-  console.log("Succesfully entered Profile Page");
+  if(req.cookies.loggedIn === "true"){
+    res.sendFile(__dirname + '/templates/profile.html');
+    console.log("Succesfully entered Profile Page");
+  }else {
+    res.sendFile(__dirname + '/templates/login.html');
+  }
+  
 });
+
+
+
+app.post("/adminLogin.html", async function(req, res){
+  let username = req.body.adminUsernameInput; 
+  let password = req.body.adminPasswordInput;
+  adminUserPassword = await User.findOne({username: username}).select('password').exec();
+  console.log(hash(password));
+  console.log(adminUserPassword.password);
+  if (hash(password) === adminUserPassword.password){
+    console.log("Passwords Match");
+    res.cookie( 'adminLoggedIn', true );
+    res.sendFile(__dirname + '/templates/admin.html');
+  } else {
+    console.log("Passwords do not match");
+    res.sendFile(__dirname + '/templates/adminLogin.html');
+  }
+})
 
 
 
@@ -300,7 +328,7 @@ app.post("/updateUser", async function (req, res) {
   res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))));
   res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
   res.cookie("clientName", JSON.stringify(req.body.name));
-  res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
+  res.cookie("clientIsHS", JSON.stringify(isHS(req.body.isHS)));
   res.sendFile(__dirname + '/templates/profile.html');
 })
 

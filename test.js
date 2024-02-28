@@ -22,7 +22,7 @@ function hash(string){
     return createHash('sha256').update(string).digest('hex');
 }; 
 
-console.log(hash("hello"));
+console.log(hash("T0d@yI$"));
 
 let x = "treees"; 
 let y = "treees"; 

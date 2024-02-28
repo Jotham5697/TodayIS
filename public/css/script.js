@@ -349,7 +349,7 @@ function generateIndexPage() {
                 document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = mwth2ndClassTime;
                 document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthLunch;
                 document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwth3rdClassTime;
-                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;cr
+                document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;
                 document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = mwth4thClassTime;
             }
         }
