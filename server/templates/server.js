@@ -43,11 +43,12 @@ const db = mongoose.connection; //used specifically for index get request to acc
 strictQuery = false;
 
 //var path = require('path');
-app.use(express.static(__dirname + '/templates/templates/public/css'));
-app.use(express.static(__dirname + '/templates/templates/public')); //for server.js
+app.use(express.static(__dirname + '/templates/public/css'));
+app.use(express.static(__dirname + '/templates/public')); //for server.js
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(express.static(__dirname + '/templates/script.js'));
+
 
 
 app.listen(5000, function () {
@@ -69,7 +70,7 @@ const User = mongoose.model("User", userSchema);
 
 
 app.get('/signUp.html', function (req, res) {
-  res.sendFile(__dirname + '/templates/signUp.html');
+  res.sendFile(__dirname + '/signUp.html');
   console.log("Succesfully entered Signup Page");
 });
 
@@ -99,31 +100,31 @@ app.get('/', async function (req, res) {
     })
     console.log("Request sent to server for day off info");
   }
-  res.sendFile(__dirname + '/templates/index.html');
+  res.sendFile(__dirname + '/index.html');
   console.log("Succesfully entered Home Page");
 });
 
 app.get('/login.html', function (req, res) {
-  res.sendFile(__dirname + '/templates/login.html');
+  res.sendFile(__dirname + '/login.html');
   console.log("Succesfully entered Login Page");
 });
 
 app.get('/admin.html', function (req, res) {
   console.log(req.cookies.adminLoggedIn);
   if (req.cookies.adminLoggedIn === "true"){
-    res.sendFile(__dirname + '/templates/admin.html')
+    res.sendFile(__dirname + '/admin.html')
   }else {
-  res.sendFile(__dirname + '/templates/adminLogin.html');
+  res.sendFile(__dirname + '/adminLogin.html');
   console.log("Succesfully entered Admin Page");
   }
 });
 
 app.get('/profile.html', function (req, res) {
   if(req.cookies.loggedIn === "true"){
-    res.sendFile(__dirname + '/templates/profile.html');
+    res.sendFile(__dirname + '/profile.html');
     console.log("Succesfully entered Profile Page");
   }else {
-    res.sendFile(__dirname + '/templates/login.html');
+    res.sendFile(__dirname + '/login.html');
   }
   
 });
@@ -139,10 +140,10 @@ app.post("/adminLogin.html", async function(req, res){
   if (hash(password) === adminUserPassword.password){
     console.log("Passwords Match");
     res.cookie( 'adminLoggedIn', true );
-    res.sendFile(__dirname + '/templates/admin.html');
+    res.sendFile(__dirname + '/admin.html');
   } else {
     console.log("Passwords do not match");
-    res.sendFile(__dirname + '/templates/adminLogin.html');
+    res.sendFile(__dirname + '/adminLogin.html');
   }
 })
 
@@ -217,7 +218,7 @@ app.post("/login.html", async function (req, res) {
     res.cookie("clientName", JSON.stringify(userUsing.name));
     res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
     res.cookie("loggedIn", "true");
-    res.sendFile(__dirname + '/templates/index.html');
+    res.sendFile(__dirname + '/index.html');
   }
 })
 
@@ -309,7 +310,7 @@ app.post("/updateTrimesterInfo", async function (req, res) {
   }
 
   //after update go back to admin page 
-  res.sendFile(__dirname + '/templates/admin.html');
+  res.sendFile(__dirname + '/admin.html');
 
 });
 
@@ -329,7 +330,7 @@ app.post("/updateUser", async function (req, res) {
   res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
   res.cookie("clientName", JSON.stringify(req.body.name));
   res.cookie("clientIsHS", JSON.stringify(isHS(req.body.isHS)));
-  res.sendFile(__dirname + '/templates/profile.html');
+  res.sendFile(__dirname + '/profile.html');
 })
 
 

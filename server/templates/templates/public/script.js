@@ -182,7 +182,7 @@ function generateIndexPage() {
 
     let days = [mondayUseDate, tuesdayUseDate, wednesdayUseDate, thursdayUseDate, fridayUseDate];
 
-    console.log("Monday Use Date: " + mondayUseDate.getTime());
+    //console.log("Monday Use Date: " + mondayUseDate.getTime());
     // console.log("Tri1End: " + tri1EndDate.getTime());
     // console.log("Tri2Start: " + tri2StartDate.getTime());
 
