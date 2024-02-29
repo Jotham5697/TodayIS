@@ -43,7 +43,7 @@ const db = mongoose.connection; //used specifically for index get request to acc
 strictQuery = false;
 
 //var path = require('path');
-app.use(express.static(__dirname + '/templates/public/css'));
+app.use(express.static(__dirname + '/templates/public/style.css'));
 app.use(express.static(__dirname + '/templates/public')); //for server.js
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
