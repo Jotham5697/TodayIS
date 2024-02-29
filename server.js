@@ -43,11 +43,11 @@ const db = mongoose.connection; //used specifically for index get request to acc
 strictQuery = false;
 
 //var path = require('path');
-app.use(express.static(__dirname + '/templates/public/style.css'));
-app.use(express.static(__dirname + '/templates/public')); //for server.js
+app.use(express.static(__dirname + '/public/style.css'));
+app.use(express.static(__dirname + '/public')); //for server.js
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
-app.use(express.static(__dirname + '/templates/script.js'));
+app.use(express.static(__dirname + '/script.js'));
 
 
 
@@ -363,6 +363,7 @@ app.delete('/deleteDayOff/:dateOff', async (req, res) => {
   }
 });
 
+module.exports = app;
 
 
 
