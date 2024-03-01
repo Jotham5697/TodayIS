@@ -3,6 +3,8 @@
 // const { get } = require("mongoose");
 
 // //Just to temp see cookies 
+// setCookie("hasNeccesaryData", false);
+
 let classesCookie = decodeURIComponent(document.cookie);
 console.log("classes: " + getCookie("theclasses"));
 console.log("This is working from script.js");
@@ -12,8 +14,8 @@ document.getElementById("output").innerHTML = classesCookie;
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------
 let userLoggedIn = getCookie("loggedIn");
 //console.log("logged in: " + userLoggedIn);
-
-
+console.log("has cookies: " + getCookie("hasNeccesaryData"));
+console.log("dates off : " + getCookie("datesOffAndReasons"));
 let datesOffAndReasons = getCookie("dateOffAndReason");
 datesOffAndReasons = JSON.parse(datesOffAndReasons);
 
