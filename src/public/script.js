@@ -23,13 +23,30 @@ let userLoggedIn = getCookie("loggedIn");
 console.log("logged in: " + userLoggedIn);
 console.log("has cookies: " + getCookie("hasNeccesaryData"));
 console.log("dates off : " + getCookie("datesOffAndReasons"));
-let datesOffAndReasons = getCookie("dateOffAndReason");
-datesOffAndReasons = JSON.parse(datesOffAndReasons);
 
-for (let i = 0; i < datesOffAndReasons.length; i++) {
-    datesOffAndReasons[i][0] = convertStringDateToJSDate(datesOffAndReasons[i][0])
-};
 
+
+// let datesOffAndReasons = getCookie("dateOffAndReason");
+// datesOffAndReasons = JSON.parse(datesOffAndReasons);
+
+// for (let i = 0; i < datesOffAndReasons.length; i++) {
+//     datesOffAndReasons[i][0] = convertStringDateToJSDate(datesOffAndReasons[i][0])
+// };
+let datesOff = JSON.parse(getCookie("datesOff"));
+
+let reasons = JSON.parse(getCookie("reasons"));
+
+let datesOffAndReasons = new Array()
+
+console.log(datesOff)
+console.log(datesOff.length)
+console.log(reasons)
+console.log(reasons.length)
+
+for (let i = 0; i < datesOff.length; i++) {
+    let data = [convertStringDateToJSDate(datesOff[i]), reasons[i]]
+    datesOffAndReasons[i] = data;
+}
 
 
 
@@ -50,9 +67,9 @@ for (let i = 0; i < datesOffAndReasons.length; i++) {
 for (let i = 1; i < datesOffAndReasons.length; i++) { //starts at secone item in array and increments up 
     let j = 0;
     while (j < i) { //checks for every element in array before current one
-        if ( compareDates(datesOffAndReasons[i][0], datesOffAndReasons[j][0]) < 0 ) { //if the date we are looking at is less than any date before it 
+        if (compareDates(datesOffAndReasons[i][0], datesOffAndReasons[j][0]) < 0) { //if the date we are looking at is less than any date before it 
             datesOffAndReasons.splice(j, 0, datesOffAndReasons[i]); //add that in to the index of where the later date was found
-            datesOffAndReasons.splice(i+1, 1); //delete the date we are looking at from its inital point 
+            datesOffAndReasons.splice(i + 1, 1); //delete the date we are looking at from its inital point 
         }
         j++;
     }
