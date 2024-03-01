@@ -79,7 +79,7 @@ app.get('/signUp.html', function (req, res) {
 
 
 
-let dateOffAndReason = new Array(); //creates empty array to hold day off info (dateoff, reason)
+// let dateOffAndReason = new Array(); //creates empty array to hold day off info (dateoff, reason)
 let dateOff = new Array();
 let reason = new Array();
 
@@ -90,21 +90,21 @@ app.get('/', async function (req, res) {
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
 
     allDaysOff.forEach((dayoff) => {
-      let info = [dayoff.dateOff, dayoff.reason];
-      dateOffAndReason.push(info);
+      // let info = [dayoff.dateOff, dayoff.reason];
+      // dateOffAndReason.push(info);
       dateOff.push(dayoff.dateOff);
       reason.push(dayoff.reason);
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 *24 * 60 *60 * 1000});
-    res.cookie("reasons", JSON.stringify(reason), { maxAge: 30 *24 * 60 *60 * 1000});
-    res.cookie("dateOffAndReason", (JSON.stringify(dateOffAndReason)), { httpOnly: false, maxAge: 30 *24 * 60 *60 * 1000 });
+    res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("reasons", JSON.stringify(reason), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    // res.cookie("dateOffAndReason", (JSON.stringify(dateOffAndReason)), { httpOnly: false, maxAge: 30 *24 * 60 *60 * 1000 });
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 *24 * 60 *60 * 1000} );
-      res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 *24 * 60 *60 * 1000});
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 *24 * 60 *60 * 1000});
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 * 24 * 60 * 60 * 1000 });
     })
     console.log("Request sent to server for day off info");
   }
@@ -119,35 +119,35 @@ app.get('/login.html', function (req, res) {
 
 app.get('/admin.html', function (req, res) {
   console.log(req.cookies.adminLoggedIn);
-  if (req.cookies.adminLoggedIn === "true"){
+  if (req.cookies.adminLoggedIn === "true") {
     res.sendFile(__dirname + '/admin.html')
-  }else {
-  res.sendFile(__dirname + '/adminLogin.html');
-  console.log("Succesfully entered Admin Page");
+  } else {
+    res.sendFile(__dirname + '/adminLogin.html');
+    console.log("Succesfully entered Admin Page");
   }
 });
 
 app.get('/profile.html', function (req, res) {
-  if(req.cookies.loggedIn === "true"){
+  if (req.cookies.loggedIn === "true") {
     res.sendFile(__dirname + '/profile.html');
     console.log("Succesfully entered Profile Page");
-  }else {
+  } else {
     res.sendFile(__dirname + '/login.html');
   }
-  
+
 });
 
 
 
-app.post("/adminLogin.html", async function(req, res){
-  let username = req.body.adminUsernameInput; 
+app.post("/adminLogin.html", async function (req, res) {
+  let username = req.body.adminUsernameInput;
   let password = req.body.adminPasswordInput;
-  adminUser = await User.findOne({username: "admin"}).exec();
+  adminUser = await User.findOne({ username: "admin" }).exec();
   console.log(hash(password));
   console.log(adminUser.password);
-  if (hash(password) === adminUser.password){
+  if (hash(password) === adminUser.password) {
     console.log("Passwords Match");
-    res.cookie( 'adminLoggedIn', true, { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie('adminLoggedIn', true, { maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.sendFile(__dirname + '/admin.html');
   } else {
     console.log("Passwords do not match");
@@ -198,7 +198,7 @@ app.post("/signUp.html", async function (req, res) {
     res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
     res.cookie("clientName", JSON.stringify(req.body.name));
     res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
-    res.cookie("loggedIn", "true", { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 
     res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
@@ -226,7 +226,7 @@ app.post("/login.html", async function (req, res) {
     res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
     res.cookie("clientName", JSON.stringify(userUsing.name));
     res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
-    res.cookie("loggedIn", "true", { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.sendFile(__dirname + '/index.html');
   }
 })
@@ -350,19 +350,20 @@ app.delete('/deleteDayOff/:dateOff', async (req, res) => {
   // res.write("<confrim>'Are you sure you want to delete ' + dayOffToBeDeleted</confrim>")
   const dayOffToBeDeleted = req.params.dateOff; //date to be deleted packages in url 
   try {
-  
+
     let deleting = await dayOff.deleteOne({ dateOff: dayOffToBeDeleted }); //deletes Day based on day off in URL 
 
     //then updates day off info in cookies
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
 
     allDaysOff.forEach((dayoff) => {
-      let info = [dayoff.dateOff, dayoff.reason];
-      dateOffAndReason.push(info);
+      dateOff.push(dayoff.dateOff);
+      reason.push(dayoff.reason);
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("dateOffAndReason", (dateOffAndReason));
+    res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("reasons", JSON.stringify(reason), { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 
     res.send("Day Off deleted successfully");
