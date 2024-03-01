@@ -24,7 +24,7 @@ console.log("logged in: " + userLoggedIn);
 console.log("has cookies: " + getCookie("hasNeccesaryData"));
 console.log("dates off : " + getCookie("datesOffAndReasons"));
 let datesOffAndReasons = getCookie("dateOffAndReason");
-datesOffAndReasons = JSON.parse(decodeURIComponent(encodeURIComponent(datesOffAndReasons)));
+datesOffAndReasons = JSON.parse(datesOffAndReasons);
 
 for (let i = 0; i < datesOffAndReasons.length; i++) {
     datesOffAndReasons[i][0] = convertStringDateToJSDate(datesOffAndReasons[i][0])
