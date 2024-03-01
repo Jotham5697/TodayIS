@@ -355,7 +355,7 @@ app.delete('/deleteDayOff/:dateOff', async (req, res) => {
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("dateOffAndReason", JSON.stringify(dateOffAndReason));
+    res.cookie("dateOffAndReason", (dateOffAndReason));
 
 
     res.send("Day Off deleted successfully");
