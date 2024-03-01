@@ -141,7 +141,7 @@ app.post("/adminLogin.html", async function(req, res){
   console.log(adminUserPassword.password);
   if (hash(password) === adminUserPassword.password){
     console.log("Passwords Match");
-    res.cookie( 'adminLoggedIn', true );
+    res.cookie( 'adminLoggedIn', true, { maxAge: 30 *24 * 60 *60 * 1000});
     res.sendFile(__dirname + '/admin.html');
   } else {
     console.log("Passwords do not match");
@@ -191,7 +191,7 @@ app.post("/signUp.html", async function (req, res) {
     res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
     res.cookie("clientName", JSON.stringify(req.body.name));
     res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
-    res.cookie("loggedIn", "true");
+    res.cookie("loggedIn", "true", { maxAge: 30 *24 * 60 *60 * 1000});
 
 
     res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
@@ -219,7 +219,7 @@ app.post("/login.html", async function (req, res) {
     res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
     res.cookie("clientName", JSON.stringify(userUsing.name));
     res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
-    res.cookie("loggedIn", "true");
+    res.cookie("loggedIn", "true", { maxAge: 30 *24 * 60 *60 * 1000});
     res.sendFile(__dirname + '/index.html');
   }
 })
