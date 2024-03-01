@@ -324,7 +324,7 @@ function generateIndexPage() {
             }
         }
 
-        document.getElementById("monTopLine").style.borderColor = "blue !important";
+        // document.getElementById("monTopLine").style.borderColor = "blue !important";
 
 
     } else if (isHS === "false") {

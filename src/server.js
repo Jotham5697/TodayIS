@@ -93,7 +93,7 @@ app.get('/', async function (req, res) {
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("dateOffAndReason", JSON.stringify(dateOffAndReason), { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("dateOffAndReason", (dateOffAndReason), { maxAge: 30 *24 * 60 *60 * 1000});
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
       res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 *24 * 60 *60 * 1000} );
@@ -136,7 +136,7 @@ app.get('/profile.html', function (req, res) {
 app.post("/adminLogin.html", async function(req, res){
   let username = req.body.adminUsernameInput; 
   let password = req.body.adminPasswordInput;
-  adminUser = await User.findOne({username: username}).exec();
+  adminUser = await User.findOne({username: "admin"}).exec();
   console.log(hash(password));
   console.log(adminUser.password);
   if (hash(password) === adminUser.password){
