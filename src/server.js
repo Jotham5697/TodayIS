@@ -192,12 +192,12 @@ app.post("/signUp.html", async function (req, res) {
     });
     console.log("User Successfully added!");
     newUser.save();
-    res.cookie("username", JSON.stringify(req.body.username));
-    res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)));
-    res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))));
-    res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
-    res.cookie("clientName", JSON.stringify(req.body.name));
-    res.cookie("clientIsHS", JSON.stringify(req.body.isHS));
+    res.cookie("username", JSON.stringify(req.body.username), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientName", JSON.stringify(req.body.name, { maxAge: 30 * 24 * 60 * 60 * 1000 }));
+    res.cookie("clientIsHS", JSON.stringify(req.body.isHS), { maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 
@@ -220,12 +220,12 @@ app.post("/login.html", async function (req, res) {
     res.send(" <script> alert('Incorrect Password, Try Again'); window.location.href = '/login.html'</script>");
   }
   else {
-    res.cookie("username", JSON.stringify(userUsing.username));
-    res.cookie("clientClasses", JSON.stringify(userUsing.classes));
-    res.cookie("clientHls", JSON.stringify(userUsing.isHL));
-    res.cookie("clientLunch", JSON.stringify(userUsing.lunches));
-    res.cookie("clientName", JSON.stringify(userUsing.name));
-    res.cookie("clientIsHS", JSON.stringify(userUsing.isHS));
+    res.cookie("username", JSON.stringify(userUsing.username), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientClasses", JSON.stringify(userUsing.classes), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientHls", JSON.stringify(userUsing.isHL), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientLunch", JSON.stringify(userUsing.lunches), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientName", JSON.stringify(userUsing.name), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("clientIsHS", JSON.stringify(userUsing.isHS), { maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
     res.sendFile(__dirname + '/index.html');
   }
