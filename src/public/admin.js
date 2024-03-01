@@ -16,7 +16,7 @@ document.getElementById('trimester3EndingDate').value = getCookie("Tri3EndDate")
 document.getElementById('trimester3StartingDayBlock').value = getCookie("Tri3StartDateBlock");
 
 
-arrayDaysOff = JSON.parse(getCookie("dateOffAndReason")); 
+arrayDaysOff = JSON.parse(getCookie("datesOff")); 
 
 console.log(arrayDaysOff);
 
@@ -24,7 +24,7 @@ var select = document.getElementById("selectDateOffToDelete");
 
 
 for(var i = 0; i < arrayDaysOff.length; i++) {
-    var opt = (arrayDaysOff[i][0]);
+    var opt = (arrayDaysOff[i]);
     var el = document.createElement("option");
     el.textContent = opt;
     el.value = opt;

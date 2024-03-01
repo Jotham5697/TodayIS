@@ -238,7 +238,7 @@ const dayOffSchema = {
 
 const dayOff = mongoose.model("dayOff", dayOffSchema);
 
-app.post("/dayOff", function (req, res) {
+app.post("/dayOff", async function (req, res) {
   let DateOff = req.body.addDateOff;
   let reason = req.body.reasonDayOff;
   let newDateOff = new dayOff({
@@ -246,9 +246,24 @@ app.post("/dayOff", function (req, res) {
     reason: req.body.reasonDayOff
   });
   newDateOff.save();
-  console.log(DateOff);
-  console.log(reason);
-  console.log(typeof (DateOff));
+
+  const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
+
+  const dateOff = new Array();
+  const reasons = new Array();
+
+  allDaysOff.forEach((dayoff) => {
+    dateOff.push(dayoff.dateOff);
+    reasons.push(dayoff.reason);
+
+  });
+
+  dateOff.push(DateOff);
+  reasons.push(reason);
+  // res.cookie("hasNeccesaryData", "true");
+  res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("reasons", JSON.stringify(reasons), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+
   res.send(" <script> alert('New Day Off Added!'); window.location.href = '/admin.html'</script>");
 })
 
@@ -356,17 +371,20 @@ app.delete('/deleteDayOff/:dateOff', async (req, res) => {
     //then updates day off info in cookies
     const allDaysOff = await dayOff.find({ dateOff: { $regex: "20" } }, "reason dateOff -_id").exec();
 
+    const dateOff = new Array();
+    const reasons = new Array();
+
     allDaysOff.forEach((dayoff) => {
       dateOff.push(dayoff.dateOff);
-      reason.push(dayoff.reason);
+      reasons.push(dayoff.reason);
 
     });
-    res.cookie("hasNeccesaryData", "true");
+    // res.cookie("hasNeccesaryData", "true");
     res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("reasons", JSON.stringify(reason), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.cookie("reasons", JSON.stringify(reasons), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+    res.send(" <script> alert('Day Off Deleted!'); window.location.href = '/admin.html'</script>")
 
-
-    res.send("Day Off deleted successfully");
+    // res.send("Day Off deleted successfully");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
