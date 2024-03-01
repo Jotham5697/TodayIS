@@ -136,16 +136,17 @@ app.get('/profile.html', function (req, res) {
 app.post("/adminLogin.html", async function(req, res){
   let username = req.body.adminUsernameInput; 
   let password = req.body.adminPasswordInput;
-  adminUserPassword = await User.findOne({username: username}).select('password').exec();
+  adminUser = await User.findOne({username: username}).exec();
   console.log(hash(password));
-  console.log(adminUserPassword.password);
-  if (hash(password) === adminUserPassword.password){
+  console.log(adminUser.password);
+  if (hash(password) === adminUser.password){
     console.log("Passwords Match");
     res.cookie( 'adminLoggedIn', true, { maxAge: 30 *24 * 60 *60 * 1000});
     res.sendFile(__dirname + '/admin.html');
   } else {
     console.log("Passwords do not match");
     res.sendFile(__dirname + '/adminLogin.html');
+    res.send(" <script> alert('Incorrect Password or Username'); window.location.href = '/'</script>");
   }
 })
 
