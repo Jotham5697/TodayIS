@@ -32,8 +32,6 @@ for (let i = 0; i < datesOffAndReasons.length; i++) {
 
 
 
-console.log(datesOffAndReasons);
-console.log(datesOffAndReasons.length);
 
 
 //deletes any duplicate Days off (starts from the back and moves to the front of the array)
@@ -46,6 +44,28 @@ for (let i = 0; i < datesOffAndReasons.length; i++) {
         }
     }
 }
+
+
+//insertion sort array of dates off by date in ascending order;
+for (let i = 1; i < datesOffAndReasons.length; i++) { //starts at secone item in array and increments up 
+    let j = 0;
+    while (j < i) { //checks for every element in array before current one
+        if ( compareDates(datesOffAndReasons[i][0], datesOffAndReasons[j][0]) < 0 ) { //if the date we are looking at is less than any date before it 
+            datesOffAndReasons.splice(j, 0, datesOffAndReasons[i]); //add that in to the index of where the later date was found
+            datesOffAndReasons.splice(i+1, 1); //delete the date we are looking at from its inital point 
+        }
+        j++;
+    }
+}
+
+
+console.log("sorted array length: " + datesOffAndReasons.length);
+
+console.log("sorted array: " + datesOffAndReasons);
+
+
+console.log(datesOffAndReasons);
+console.log(datesOffAndReasons.length);
 
 console.log("updated double array length" + datesOffAndReasons.length);
 
@@ -241,7 +261,7 @@ function generateIndexPage() {
         var daysSinceStart = Math.round(compareDates(mondayUseDate, tri2StartDate));
         var weekendsSinceStart = (daysSinceStart / 7) * 2;
 
-        console.log("days since start of trimester:" +daysSinceStart);
+        console.log("days since start of trimester:" + daysSinceStart);
         console.log("weekends since start:" + weekendsSinceStart);
 
 
@@ -450,9 +470,9 @@ function generateIndexPage() {
                     document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = tfAfternoonExtension;
                 } else {
                     document.getElementById(getDayName(days[i]) + "AfternoonHL").innerHTML = allClassesArray[i][3] + " HL Extension";
-                document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = mwthAfternoonExtension;
+                    document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = mwthAfternoonExtension;
                 }
-            } 
+            }
 
         }
 
