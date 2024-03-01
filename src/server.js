@@ -93,7 +93,7 @@ app.get('/', async function (req, res) {
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("dateOffAndReason", (dateOffAndReason), { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("dateOffAndReason", (dateOffAndReason), { maxAge: 30 *24 * 60 *60 * 1000, httpOnly: false});
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
       res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 *24 * 60 *60 * 1000} );
