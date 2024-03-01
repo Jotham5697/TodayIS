@@ -35,7 +35,6 @@ for (let i = 0; i < datesOffAndReasons.length; i++) {
     for (let j = datesOffAndReasons.length - 1; j > i; j--) {
         if (compareDates(datesOffAndReasons[i][0], datesOffAndReasons[j][0]) === 0) {
             datesOffAndReasons.splice(j, 1);
-            datesOffAndReasons.splice(j, 1);
             // console.log("found duplicate @ index" + j)
         }
     }
