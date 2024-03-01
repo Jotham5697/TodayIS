@@ -93,12 +93,12 @@ app.get('/', async function (req, res) {
 
     });
     res.cookie("hasNeccesaryData", "true");
-    res.cookie("dateOffAndReason", dateOffAndReason, { path: "/", maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("dateOffAndReason", dateOffAndReason, { maxAge: 30 *24 * 60 *60 * 1000});
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { path: "/", maxAge: 30 *24 * 60 *60 * 1000} );
-      res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { path: "/", maxAge: 30 *24 * 60 *60 * 1000});
-      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { path: "/", maxAge: 30 *24 * 60 *60 * 1000});
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 *24 * 60 *60 * 1000} );
+      res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 *24 * 60 *60 * 1000});
+      res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 *24 * 60 *60 * 1000});
     })
     console.log("Request sent to server for day off info");
   }
