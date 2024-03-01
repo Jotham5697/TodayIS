@@ -12,6 +12,13 @@ document.getElementById("output").innerHTML = classesCookie;
 
 
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------
+
+let tri1StartDate = convertStringDateToJSDate(getCookie("Tri1StartDate"));
+let tri1EndDate = convertStringDateToJSDate(getCookie("Tri1EndDate"));
+let tri1StartDateBlock = +getCookie("Tri1StartDateBlock");
+console.log("tri1start: " + tri1StartDate);
+
+
 let userLoggedIn = getCookie("loggedIn");
 console.log("logged in: " + userLoggedIn);
 console.log("has cookies: " + getCookie("hasNeccesaryData"));
@@ -43,10 +50,6 @@ for (let i = 0; i < datesOffAndReasons.length; i++) {
 console.log("updated double array length" + datesOffAndReasons.length);
 
 
-let tri1StartDate = convertStringDateToJSDate(getCookie("Tri1StartDate"));
-let tri1EndDate = convertStringDateToJSDate(getCookie("Tri1EndDate"));
-let tri1StartDateBlock = +getCookie("Tri1StartDateBlock");
-console.log("tri1start: " + tri1StartDate);
 
 let tri2StartDate = convertStringDateToJSDate(getCookie("Tri2StartDate"));
 let tri2EndDate = convertStringDateToJSDate(getCookie("Tri2EndDate"));
