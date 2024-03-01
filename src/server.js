@@ -80,6 +80,8 @@ app.get('/signUp.html', function (req, res) {
 
 
 let dateOffAndReason = new Array(); //creates empty array to hold day off info (dateoff, reason)
+let dateOff = new Array();
+let reason = new Array();
 
 app.get('/', async function (req, res) {
   let hasData = req.cookies.hasNeccesaryData;
@@ -90,9 +92,13 @@ app.get('/', async function (req, res) {
     allDaysOff.forEach((dayoff) => {
       let info = [dayoff.dateOff, dayoff.reason];
       dateOffAndReason.push(info);
+      dateOff.push(dayoff.dateOff);
+      reason.push(dayoff.reason);
 
     });
     res.cookie("hasNeccesaryData", "true");
+    res.cookie("datesOff", JSON.stringify(dateOff), { maxAge: 30 *24 * 60 *60 * 1000});
+    res.cookie("reasons", JSON.stringify(reason), { maxAge: 30 *24 * 60 *60 * 1000});
     res.cookie("dateOffAndReason", (JSON.stringify(dateOffAndReason)), { httpOnly: false, maxAge: 30 *24 * 60 *60 * 1000 });
     const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
     importantTrimesterInfo.forEach((trimesterInfo) => {
