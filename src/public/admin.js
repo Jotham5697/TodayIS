@@ -20,6 +20,21 @@ arrayDaysOff = JSON.parse(getCookie("datesOff"));
 
 console.log(arrayDaysOff);
 
+//insertion sort array of dates off by date in ascending order;
+for (let i = 1; i < arrayDaysOff.length; i++) { //starts at secone item in array and increments up 
+    let j = 0;
+    while (j < i) { //checks for every element in array before current one
+        if (compareDates(convertStringDateToJSDate(arrayDaysOff[i]),convertStringDateToJSDate(arrayDaysOff[j])) < 0) { //if the date we are looking at is less than any date before it 
+            arrayDaysOff.splice(j, 0, arrayDaysOff[i]); //add that in to the index of where the later date was found
+            arrayDaysOff.splice(i + 1, 1); //delete the date we are looking at from its inital point 
+        }
+        j++;
+    }
+}
+
+
+console.log(arrayDaysOff);
+
 var select = document.getElementById("selectDateOffToDelete");
 
 
@@ -93,4 +108,10 @@ function getDateInfo(jsDate){
     let month = jsDate.getMonth() +1;
     let day =  jsDate.getDate();
     return(month  + "/" + day+ "/" + year );
+}
+
+
+
+function compareDates(jsDate1, jsDate2) {
+    return ((jsDate1.getTime() - jsDate2.getTime()) / (1000 * 60 * 60 * 24));
 }
