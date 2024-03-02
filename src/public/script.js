@@ -110,6 +110,7 @@ if (userLoggedIn === "true") {
 
     var clientClasses = getCookie("clientClasses");
     clientClasses = JSON.parse(clientClasses);
+    console.log("client Classes: " + clientClasses)
 
     var clientHLs = getCookie("clientHls");
     clientHLs = JSON.parse(clientHLs);
@@ -136,7 +137,7 @@ if (userLoggedIn === "true") {
         var tfLunch = "11:30-12:10";
         var tf3rdClassTime = "12:15-1:00";
         var tfRecess = "1:00-1:30";
-        var tf4thClassTime = "2:40-2:55";
+        var tf4thClassTime = "1:40-2:55";
 
     } else {
 
@@ -405,26 +406,16 @@ function generateIndexPage() {
         let fourthBlockInfo = generateHSUser4thBlock(daysLabel);
         // console.log(thirdBlockInfo);
         for (let i = 0; i < days.length; i++) {
-            //console.log("days [i] " + days[i])
             document.getElementById(getDayName(days[i]) + "1stClass").innerHTML = allClassesArray[i][0];
             document.getElementById(getDayName(days[i]) + "2ndClass").innerHTML = allClassesArray[i][1];
-            // document.getElementById(getDayName(days[i]) + "Top3rdClass").innerHTML = "A Lunch";
-            // document.getElementById(getDayName(days[i]) + "Middle3rdClass").innerHTML = allClassesArray[i][2];
-            // document.getElementById(getDayName(days[i]) + "Bottom3rdClass").innerHTML = "Recess";
             document.getElementById(getDayName(days[i]) + "4thClass").innerHTML = allClassesArray[i][3];
 
             document.getElementById(getDayName(days[i]) + "1stTime").innerHTML = firstClassTime;
             if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
                 document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = tf2ndClassTime;
-                // document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = tfLunch;
-                // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = tf3rdClassTime;
-                // document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = tfRecess;
                 document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = tf4thClassTime;
             } else {
                 document.getElementById(getDayName(days[i]) + "2ndTime").innerHTML = mwth2ndClassTime;
-                // document.getElementById(getDayName(days[i]) + "Top3rdClassTime").innerHTML = mwthLunch;
-                // document.getElementById(getDayName(days[i]) + "Middle3rdClassTime").innerHTML = mwth3rdClassTime;
-                // document.getElementById(getDayName(days[i]) + "Bottom3rdClassTime").innerHTML = mwthRecess;
                 document.getElementById(getDayName(days[i]) + "4thTime").innerHTML = mwth4thClassTime;
             }
 
@@ -472,18 +463,14 @@ function generateIndexPage() {
                 }
             }
 
-            // console.log(clientHLs);
-            // console.log(firstBlockInfo);
-            // console.log("4th Block: " + fourthBlockInfo);
+    
 
             if (firstBlockInfo[i] === true) {
-                // console.log(getDayName(days[i]));
                 document.getElementById(getDayName(days[i]) + "MorningHL").innerHTML = (allClassesArray[i][0] + " HL Extension");
                 document.getElementById(getDayName(days[i]) + "MorningHLTime").innerHTML = morningExtension;
             } else console.log("Not true");
 
             if (fourthBlockInfo[i] === true) {
-                // console.log(fourthBlockInfo[i] === "true");
                 if (getDayName(days[i]) === "tuesday" || getDayName(days[i]) === "friday") {
                     document.getElementById(getDayName(days[i]) + "AfternoonHL").innerHTML = allClassesArray[i][3] + " HL Extension";
                     document.getElementById(getDayName(days[i]) + "AfternoonHLTime").innerHTML = tfAfternoonExtension;
