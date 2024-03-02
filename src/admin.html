@@ -23,9 +23,9 @@
 
 
 
-    <nav id=nav class="navbar navbar navbar-expand-lg navbar-dark trans navbar-nav" data-bs-theme="dark">
+    <nav id=nav class="navbar navbar navbar-expand-sm navbar-dark trans navbar-nav" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand white" href="#">Welcome</a>
+            <a class="navbar-brand white" href="/">Welcome</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -36,13 +36,16 @@
                 </span>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link active white" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active white" aria-current="page" href="login.html">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link white" href="signUp.html">Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link white" href="/">Home</a>
+                        <a class="nav-link white" href="admin.html">Admin Page</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link white" href="profile.html">User Profile</a>
@@ -54,12 +57,15 @@
 
 
 
+
     <div class="container text-center">
         <div class="row align-items-left">
             <div class="col-2 white">
                 <!-- Left of Add Day Off -->
             </div>
             <div class="col-4 white col align-self-center">
+                <h2 class="white">Add New Day Off</h2>
+                <br>
                 <form class="container" method="post" action="/dayOff">
                     <label for="useDate" class="white">Select Day Off: </label>
                     <br>
@@ -75,13 +81,16 @@
                 <br>
             </div>
             <div class="col-4 white">
+                <h2 class="white"> Delete Existing Day Off</h2>
+                <br>
                 <form class="container" method="delete" id="deleteDayOff" action="deleteDayOff">
 
                     <select class="white myinput" id="selectDateOffToDelete">
                         <option>Select a Day Off To Remove </option>
                     </select>
                     <br>
-                    
+                    <br>
+
                     <button class="white myinput"> Delete Day Off</button>
                 </form>
             </div>
@@ -120,7 +129,12 @@
             </div>
 
             <div class="col-4 white">
+                <h2>
+                    <br>
+                </h2>
                 <h4>Trimester 1 Information</h4>
+                <br>
+
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="1" />
                     <label for="trimester1StartingDate" class="white">Start Date (T1): </label>
@@ -150,7 +164,10 @@
             </div>
 
             <div class="col-4 white">
+                <h2 class="white"> Update Trimester Info:</h2>
                 <h4>Trimester 2 Information</h4>
+                <br>
+
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="2" />
                     <label for="trimester2StartingDate" class="white">Start Date (T2): </label>
@@ -180,7 +197,11 @@
             </div>
 
             <div class="col-4 white">
+                <h2>
+                    <br>
+                </h2>
                 <h4>Trimester 3 Information</h4>
+                <br>
                 <form method="post" action="/updateTrimesterInfo">
                     <input type="hidden" id="trimesterNumber" name="trimesterNumber" value="3" />
                     <label for="trimester3StartingDate" class="white">Start Date (T3): </label>

@@ -1,14 +1,16 @@
 // const { get } = require("mongoose");
 
+// const { disabled } = require("../server");
+
 // const { get } = require("mongoose");
 
 // //Just to temp see cookies 
 // setCookie("hasNeccesaryData", false);
 
-let classesCookie = decodeURIComponent(document.cookie);
-console.log("classes: " + getCookie("theclasses"));
-console.log("This is working from script.js");
-document.getElementById("output").innerHTML = classesCookie;
+// let classesCookie = decodeURIComponent(document.cookie);
+// console.log("classes: " + getCookie("theclasses"));
+// console.log("This is working from script.js");
+// document.getElementById("output").innerHTML = classesCookie;
 
 
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------

@@ -23,7 +23,7 @@
 
 
 
-  <nav id=nav class="navbar navbar navbar-expand-lg navbar-dark trans navbar-nav" data-bs-theme="dark">
+  <nav id=nav class="navbar navbar navbar-expand-sm navbar-dark trans navbar-nav" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand white" href="/">Welcome</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -33,15 +33,11 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <span class="navbar-text white">
           TodayIS 
-          
-        </span>
-        <p class = "navbar-text white" id = "todaysDate"></p>
-        
-        <script>
-          let today = new Date()
-          document.getElementById("todaysDate").innerHTML = today;
-        </script>
+        </span>      
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active white" aria-current="page" href="index.html">Home</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link active white" aria-current="page" href="login.html">Login</a>
           </li>
@@ -54,11 +50,10 @@
           <li class="nav-item">
             <a class="nav-link white" href="profile.html">User Profile</a>
           </li>
-          <li class="nav-item">
-            <button class="white myinput"
-              onclick=" setCookie('adminLoggedIn', '', '10'); setCookie('clientClasses','', '10'); setCookie('clientHls','', '10'); setCookie('clientLunch','', '10'); setCookie('clientName','', '10'); setCookie('username','', '10'); setCookie('clientisHS','', '10'); setCookie('loggedIn','false', '10'); ">
-              Sign Out </button>
-
+          <li class="nav-item justify-content-end">
+            <form class="container-fluid justify-content-end">
+              <button id =signOutButton" class="btn btn-sm btn-outline-danger" type="button" onclick=" setCookie('adminLoggedIn', '', '10'); setCookie('clientClasses','', '10'); setCookie('clientHls','', '10'); setCookie('clientLunch','', '10'); setCookie('clientName','', '10'); setCookie('username','', '10'); setCookie('clientisHS','', '10'); setCookie('loggedIn','false', '10'); ">Sign Out</button>
+            </form>
           </li>
         </ul>
 
