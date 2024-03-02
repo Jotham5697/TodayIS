@@ -178,31 +178,36 @@ app.post("/signUp.html", async function (req, res) {
   if (req.body.password !== req.body.cpassword) (res.send(" <script> alert('Passwords Do Not Match'); window.location.href = '/signUp.html'</script>"));
   else if (req.body.username === "" || req.body.password === "" || req.body.name === "" || req.body.class1 === "" || req.body.class2 === "" || req.body.class3 === "" || req.body.class4 === "" || req.body.class5 === "" || req.body.class6 === "" || req.body.class7 === "" || req.body.class8 === "") {
     res.send(" <script> alert('Make Sure All Required Fields Are Filled Out'); window.location.href = '/signUp.html'</script>")
-  } else {
+  }
+  else {
+    const userUsing = await User.findOne({ username: req.body.username }).exec();
+    if (userUsing !== null) { //checks if user with same username already exists 
+      res.send(" <script> alert('Username Already Taken');");
+    } else {
 
-    let newUser = new User({
-      username: req.body.username,
-      password: hash(req.body.password),
-      name: req.body.name,
-      isHS: isHS(req.body.isHS),
+      let newUser = new User({
+        username: req.body.username,
+        password: hash(req.body.password),
+        name: req.body.name,
+        isHS: isHS(req.body.isHS),
 
-      classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
-      isHL: Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8)),
-      lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)
-    });
-    console.log("User Successfully added!");
-    newUser.save();
-    res.cookie("username", JSON.stringify(req.body.username), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("clientName", JSON.stringify(req.body.name, { maxAge: 30 * 24 * 60 * 60 * 1000 }));
-    res.cookie("clientIsHS", JSON.stringify(req.body.isHS), { maxAge: 30 * 24 * 60 * 60 * 1000 });
-    res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        classes: Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8),
+        isHL: Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8)),
+        lunches: Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)
+      });
+      console.log("User Successfully added!");
+      newUser.save();
+      res.cookie("username", JSON.stringify(req.body.username), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("clientName", JSON.stringify(req.body.name, { maxAge: 30 * 24 * 60 * 60 * 1000 }));
+      res.cookie("clientIsHS", JSON.stringify(req.body.isHS), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 
-    res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
-    //res.write("<script>alert('User Successfully Created!')</script>");
+      res.send(" <script> alert('User Successfully Created!'); window.location.href = '/'</script>");
+    }
 
   }
 })
