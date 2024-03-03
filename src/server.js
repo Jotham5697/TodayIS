@@ -177,7 +177,7 @@ app.post("/signUp.html", async function (req, res) {
   else {
     const userUsing = await User.findOne({ username: req.body.username }).exec();
     if (userUsing !== null) { //checks if user with same username already exists 
-      res.send(" <script> alert('Username Already Taken'); </script>");
+      res.send(" <script> alert('Username Already Taken'); window.location.href = '/signUp.html' </script>");
     } else {
 
       let newUser = new User({
