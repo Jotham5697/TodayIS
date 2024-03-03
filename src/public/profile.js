@@ -1,6 +1,5 @@
 var isHS = getCookie("clientIsHS");
 var clientName = JSON.parse(getCookie("clientName"));
-console.log(clientName);
 
 var clientClasses = getCookie("clientClasses");
 clientClasses = JSON.parse(clientClasses);
@@ -11,7 +10,6 @@ clientHLs = JSON.parse(clientHLs);
 
 var clientLunches = getCookie("clientLunch");
 clientLunches = JSON.parse(clientLunches);
-console.log(clientLunches);
 
 
 document.getElementById("name").value = clientName;

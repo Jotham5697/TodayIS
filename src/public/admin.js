@@ -1,6 +1,5 @@
 // const { get } = require("mongoose");
 
-console.log("Tri1StartDate: " + getCookie("Tri1StartDate"))
 
 document.getElementById('trimester1StartingDate').value = getCookie("Tri1StartDate");
 document.getElementById('trimester1EndingDate').value = getCookie("Tri1EndDate");
@@ -18,7 +17,6 @@ document.getElementById('trimester3StartingDayBlock').value = getCookie("Tri3Sta
 
 arrayDaysOff = JSON.parse(getCookie("datesOff")); 
 
-console.log(arrayDaysOff);
 
 //insertion sort array of dates off by date in ascending order;
 for (let i = 1; i < arrayDaysOff.length; i++) { //starts at second item in array and increments up 
@@ -79,10 +77,7 @@ function replaceCookie(cookieName, newValue, expirationDays) {
     if (getCookie(cookieName)) {
         // Set the new value for the cookie
         setCookie(cookieName, newValue, expirationDays);
-        console.log("Cookie " + cookieName + " has been replaced with value: " + newValue);
-    } else {
-        console.log("Cookie " + cookieName + " does not exist.");
-    }
+    } 
 }
 
 //Function to turn a date in string format yyyy-mm-dd to JS Date
