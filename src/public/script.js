@@ -1,9 +1,7 @@
 
 
-let classesCookie = decodeURIComponent(document.cookie);
-// console.log("classes: " + getCookie("theclasses"));
-// console.log("This is working from script.js");
-document.getElementById("output").innerHTML = classesCookie;
+// let classesCookie = decodeURIComponent(document.cookie);
+// document.getElementById("output").innerHTML = classesCookie;
 
 
 
