@@ -9,6 +9,7 @@
 // vercel add ons
 
 
+
 //Neccesary Packages and Tools
 const express = require("express");
 const app = express();
@@ -298,9 +299,9 @@ app.post("/updateTrimesterInfo", async function (req, res) {
       //then pull new updated data from db and send a cookie to update value on client side 
       const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
       importantTrimesterInfo.forEach((trimesterInfo) => {
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 * 24 * 60 * 60 * 1000 });
       })
     }
   } else if (trimester === "2") {
@@ -315,9 +316,9 @@ app.post("/updateTrimesterInfo", async function (req, res) {
 
       const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
       importantTrimesterInfo.forEach((trimesterInfo) => {
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 * 24 * 60 * 60 * 1000 });
       })
     }
   } else {
@@ -331,9 +332,9 @@ app.post("/updateTrimesterInfo", async function (req, res) {
 
       const importantTrimesterInfo = await trimesterInfo.find({ trimester: { $lt: 4 } }, "-_id").exec();
       importantTrimesterInfo.forEach((trimesterInfo) => {
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate);
-        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock);
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDate", trimesterInfo.startDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "EndDate", trimesterInfo.endDate, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+        res.cookie("Tri" + trimesterInfo.trimester + "StartDateBlock", trimesterInfo.startDateBlock, { maxAge: 30 * 24 * 60 * 60 * 1000 });
       })
     }
   }
@@ -356,12 +357,15 @@ app.post("/updateUser", async function (req, res) {
   //update collection in db wth new info
   let update = await User.findOneAndUpdate({ username: username }, { $set: { name: newName, isHS: newIsHS, classes: newClasses, isHL: newHLs, lunches: newLunches } });
   
+  // console.log( newHLs);
+
+
   //also update cookies with new info
-  res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)));
-  res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))));
-  res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)));
-  res.cookie("clientName", JSON.stringify(req.body.name));
-  res.cookie("clientIsHS", JSON.stringify(isHS(req.body.isHS)));
+  res.cookie("clientClasses", JSON.stringify(Array(req.body.class1, req.body.class2, req.body.class3, req.body.class4, req.body.class5, req.body.class6, req.body.class7, req.body.class8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("clientName", JSON.stringify(req.body.name), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+  res.cookie("clientIsHS", JSON.stringify(isHS(req.body.isHS)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
   //redirect back to profile page
   res.sendFile(__dirname + '/profile.html');

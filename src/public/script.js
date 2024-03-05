@@ -1,5 +1,12 @@
 
 
+let classesCookie = decodeURIComponent(document.cookie);
+// console.log("classes: " + getCookie("theclasses"));
+// console.log("This is working from script.js");
+document.getElementById("output").innerHTML = classesCookie;
+
+
+
 //Pulling all neccesary inital Data from Cookies---------------------------------------------------------------------------------------------------------------------------------
 
 let tri1StartDate = convertStringDateToJSDate(getCookie("Tri1StartDate"));
