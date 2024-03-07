@@ -201,7 +201,7 @@ app.post("/signUp.html", async function (req, res) {
       res.cookie("clientHls", JSON.stringify(Array(isHL(req.body.hl1), isHL(req.body.hl2), isHL(req.body.hl3), isHL(req.body.hl4), isHL(req.body.hl5), isHL(req.body.hl6), isHL(req.body.hl7), isHL(req.body.hl8))), { maxAge: 30 * 24 * 60 * 60 * 1000 });
       res.cookie("clientLunch", JSON.stringify(Array(req.body.lunch1, req.body.lunch2, req.body.lunch3, req.body.lunch4, req.body.lunch5, req.body.lunch6, req.body.lunch7, req.body.lunch8)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
       res.cookie("clientName", JSON.stringify(req.body.name, { maxAge: 30 * 24 * 60 * 60 * 1000 }));
-      res.cookie("clientIsHS", JSON.stringify(req.body.isHS), { maxAge: 30 * 24 * 60 * 60 * 1000 });
+      res.cookie("clientIsHS", JSON.stringify(isHS(req.body.isHS)), { maxAge: 30 * 24 * 60 * 60 * 1000 });
       res.cookie("loggedIn", "true", { maxAge: 30 * 24 * 60 * 60 * 1000 });
 
 

@@ -17,6 +17,9 @@ document.getElementById("name").value = clientName;
 if (getCookie('clientIsHS') === "true") isHS = 1;
 else isHS = 2;
 
+console.log(getCookie("clientIsHS"));
+console.log(isHS);
+
 document.getElementById("isHS").value = isHS;
 
 for (let i = 0; i < clientClasses.length; i++) {
