@@ -196,6 +196,12 @@ function generateIndexPage() {
             daysLabel[i] = "Spring Break!!";
         }
     } //then check if use date is in first trimester
+    else if (compareDates(mondayUseDate, tri3EndDate) > 0) {
+        for (let i = 0; i < days.length; i++) {
+            document.getElementById(getDayName(days[i]) + "BlockDate").innerHTML = "Summer Break!!!";
+            daysLabel[i] = "Summer Break!!";
+        }
+    } //then check if use date is in first trimester
     else if (compareDates(mondayUseDate, tri1StartDate) >= 0 && compareDates(mondayUseDate, tri1EndDate) <= 0) {
         //first find mondayBlock 
         var daysSinceStart = Math.round(compareDates(mondayUseDate, tri1StartDate)); //this finds the total number of days since the start of the trimester (including weekends & daysoff)
